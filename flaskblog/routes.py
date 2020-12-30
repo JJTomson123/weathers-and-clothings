@@ -3,31 +3,17 @@ import secrets
 from PIL import Image
 from flask import render_template, url_for, flash, redirect, request
 from flaskblog import app, db, bcrypt
-from flaskblog.forms import RegistrationForm, LoginForm, UpdateAccountForm
+from flaskblog.forms import RegistrationForm, LoginForm, UpdateAccountForm, NewClothesForm
 from flaskblog.models import User, Post
 from flask_login import login_user, current_user, logout_user, login_required
 
 
-posts = [
-    {
-        'author': 'Corey Schafer',
-        'title': 'Blog Post 1',
-        'content': 'First post content',
-        'date_posted': 'April 20, 2018'
-    },
-    {
-        'author': 'Jane Doe',
-        'title': 'Blog Post 2',
-        'content': 'Second post content',
-        'date_posted': 'April 21, 2018'
-    }
-]
 
 
 @app.route("/")
 @app.route("/home")
 def home():
-    return render_template('home.html', posts=posts)
+    return render_template('home.html')
 
 
 @app.route("/about")
@@ -105,9 +91,31 @@ def account():
     image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
     return render_template('account.html', title='Account',
                            image_file=image_file, form=form)
+
+
+@app.route('/data', methods=['GET', 'POST'])
+def data():
+    id_value = request.form.get('datasource')
+    def description_value(select):
+        for data in two_dimensional_list:
+            if data[0] == select:
+                return data[1]
+    return description_value(id_value)
+
+
+
 @app.route("/wardrobe", methods=['GET', 'POST'])
 @login_required
 def wardrobe():
-    form = UpdateAccountForm()
-    return render_template('wardrobe.html', title='Wardrobe', form=form)
+    form = NewClothesForm()
+    two_dimensional_list = [['001','尼龍'],['002','羽絨'],['003','棉']]
+    if form.picture.data:
+            picture_file = save_picture(form.picture.data)
+            current_user.image_file = picture_file
+        
+        #db.session.commit()
+    image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
+
+
+    return render_template('wardrobe.html', title='Wardrobe', image_file=image_file, form=form, two_dimensional_list=two_dimensional_list)
     
