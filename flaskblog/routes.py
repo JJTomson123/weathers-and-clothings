@@ -13,7 +13,12 @@ from flask_login import login_user, current_user, logout_user, login_required
 @app.route("/")
 @app.route("/home")
 def home():
-    return render_template('home.html')
+    n = 15
+    if n > 20:
+        bg = "/static/fr.jpg"
+    else:
+        bg = "/static/bk.jpg"
+    return render_template('home.html', bg=bg)
 
 
 @app.route("/about")

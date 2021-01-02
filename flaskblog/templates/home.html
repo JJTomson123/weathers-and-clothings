@@ -1,12 +1,15 @@
 {% extends "layout.html" %}
 {% block content %}
-    {% for post in posts %}
         <div id="sidebar1">
         Today weather
+        <img src={{bg}} width="400" height="700">
         </div>
         <div id="column1">
-            <img src="/static/clothes1.jpg" width="300" height="300">
-            <img src="/static/jeans.jpg" width="300" height="300">
+            <img src=/static/clothes1.jpg width="300" height="300"><img src="/static/jeans.jpg" width="300" height="300">
+            <br>
+            <br>
+            <br>
+            <br>
+            <img src="/static/clothes1.jpg" width="300" height="300"><img src="/static/jeans.jpg" width="300" height="300">
         </div>
-    {% endfor %}
 {% endblock content %}
