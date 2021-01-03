@@ -20,6 +20,11 @@ def home():
         bg = "/static/bk.jpg"
     return render_template('home.html', bg=bg)
 
+#here is weather html
+@app.route("/weather")
+def weather():
+    return render_template('weather.html', title='Weather')
+
 
 @app.route("/about")
 def about():
