@@ -1,9 +1,10 @@
 import os
 import secrets
+import time
 from PIL import Image
-from flask import render_template, url_for, flash, redirect, request
+from flask import render_template, url_for, flash, redirect, request, session
 from flaskblog import app, db, bcrypt
-from flaskblog.forms import RegistrationForm, LoginForm, UpdateAccountForm, NewClothesForm
+from flaskblog.forms import RegistrationForm, LoginForm, UpdateAccountForm
 from flaskblog.models import User, Post
 from flask_login import login_user, current_user, logout_user, login_required
 
@@ -37,6 +38,15 @@ def register():
         return redirect(url_for('home'))
     form = RegistrationForm()
     if form.validate_on_submit():
+        #here will create new user folder when register
+        basepath = os.path.join(os.path.dirname(__file__), 'static','uploads')
+        os.mkdir(os.path.join(basepath,request.values['username']))
+        os.mkdir(os.path.join(basepath,request.values['username'],'coldday'))
+        os.mkdir(os.path.join(basepath,request.values['username'],'coldday','rainning'))
+        os.mkdir(os.path.join(basepath,request.values['username'],'coldday','sunshine'))
+        os.mkdir(os.path.join(basepath,request.values['username'],'hotday'))
+        os.mkdir(os.path.join(basepath,request.values['username'],'hotday','rainning'))
+        os.mkdir(os.path.join(basepath,request.values['username'],'hotday','sunshine'))
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
         user = User(username=form.username.data, email=form.email.data, password=hashed_password)
         db.session.add(user)
@@ -103,29 +113,47 @@ def account():
                            image_file=image_file, form=form)
 
 
+"""
+@app.route('/upload', methods=['GET', 'POST'])
+def upload():
+    basepath = os.path.join(os.path.dirname(__file__), 'static','uploads')
+	dirs = os.listdir(os.path.join(basepath,session.get('username')))
+    dirs.insert(0,'New Folder')
+	dirs.insert(0,'Not Choose')
+    if request.method == 'POST':
+		flist = request.files.getlist("file[]")
+		
+		for f in flist:
+			try:
+				basepath = os.path.join(os.path.dirname(__file__), 'static','uploads')
+				format=f.filename[f.filename.index('.'):]
+				fileName=time.time()
+				if format in ('.jpg','.png','.jpeg','.HEIC','.jfif'):
+					format='.jpg'
+                if request.values['folder']=='0':
+				return render_template('upload.html',alert='Please choose a folder or creat a folder',dirs=dirs)
+
+			elif request.values['folder']=='1':
+				if not os.path.isdir(os.path.join(basepath,session.get('username'),request.values['foldername'])):
+					os.mkdir(os.path.join(basepath,session.get('username'),request.values['foldername']))
+	
+            except:
+				return render_template('wardrobe.html',alert='你沒有選擇要上傳的檔案',dirs=dirs)
+            return redirect(url_for('upload'))
+	return render_template('wardrobe.html',dirs=dirs)
+"""
+@app.route("/wardrobe", methods=['GET', 'POST'])
+@login_required
+def wardrobe():
+    two_dimensional_list = [['001','尼龍'],['002','羽絨'],['003','棉']]
+    return render_template('wardrobe.html', title='Wardrobe', two_dimensional_list=two_dimensional_list)
+    
 @app.route('/data', methods=['GET', 'POST'])
 def data():
     id_value = request.form.get('datasource')
+    two_dimensional_list = [['001','尼龍'],['002','羽絨'],['003','棉']]
     def description_value(select):
         for data in two_dimensional_list:
             if data[0] == select:
                 return data[1]
     return description_value(id_value)
-
-
-
-@app.route("/wardrobe", methods=['GET', 'POST'])
-@login_required
-def wardrobe():
-    form = NewClothesForm()
-    two_dimensional_list = [['001','尼龍'],['002','羽絨'],['003','棉']]
-    if form.picture.data:
-            picture_file = save_picture(form.picture.data)
-            current_user.image_file = picture_file
-        
-        #db.session.commit()
-    image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
-
-
-    return render_template('wardrobe.html', title='Wardrobe', image_file=image_file, form=form, two_dimensional_list=two_dimensional_list)
-    
