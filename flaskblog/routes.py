@@ -145,8 +145,9 @@ def upload():
 @app.route("/wardrobe", methods=['GET', 'POST'])
 @login_required
 def wardrobe():
+    form = UpdateAccountForm()
     two_dimensional_list = [['001','尼龍'],['002','羽絨'],['003','棉']]
-    return render_template('wardrobe.html', title='Wardrobe', two_dimensional_list=two_dimensional_list)
+    return render_template('wardrobe.html', form=form, title='Wardrobe', two_dimensional_list=two_dimensional_list)
     
 @app.route('/data', methods=['GET', 'POST'])
 def data():
