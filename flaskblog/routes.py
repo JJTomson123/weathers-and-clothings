@@ -11,6 +11,7 @@ from flask_login import login_user, current_user, logout_user, login_required
 
 
 
+
 @app.route("/")
 @app.route("/home")
 def home():
@@ -41,12 +42,13 @@ def register():
         #here will create new user folder when register
         basepath = os.path.join(os.path.dirname(__file__), 'static','uploads')
         os.mkdir(os.path.join(basepath,request.values['username']))
-        os.mkdir(os.path.join(basepath,request.values['username'],'coldday'))
-        os.mkdir(os.path.join(basepath,request.values['username'],'coldday','rainning'))
-        os.mkdir(os.path.join(basepath,request.values['username'],'coldday','sunshine'))
-        os.mkdir(os.path.join(basepath,request.values['username'],'hotday'))
-        os.mkdir(os.path.join(basepath,request.values['username'],'hotday','rainning'))
-        os.mkdir(os.path.join(basepath,request.values['username'],'hotday','sunshine'))
+        os.mkdir(os.path.join(basepath,request.values['username'],'pants'))
+        os.mkdir(os.path.join(basepath,request.values['username'],'pants','trousers'))
+        os.mkdir(os.path.join(basepath,request.values['username'],'pants','shorts'))
+        os.mkdir(os.path.join(basepath,request.values['username'],'coats'))
+        os.mkdir(os.path.join(basepath,request.values['username'],'coats','coats'))
+        os.mkdir(os.path.join(basepath,request.values['username'],'coats','jackets'))
+        os.mkdir(os.path.join(basepath,request.values['username'],'coats','rainwear'))
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
         user = User(username=form.username.data, email=form.email.data, password=hashed_password)
         db.session.add(user)
@@ -113,42 +115,46 @@ def account():
                            image_file=image_file, form=form)
 
 
-"""
-@app.route('/upload', methods=['GET', 'POST'])
+
+@app.route('/upload/', methods=['GET', 'POST'])
 def upload():
-    basepath = os.path.join(os.path.dirname(__file__), 'static','uploads')
-	dirs = os.listdir(os.path.join(basepath,session.get('username')))
-    dirs.insert(0,'New Folder')
-	dirs.insert(0,'Not Choose')
-    if request.method == 'POST':
+	basepath = os.path.join(os.path.dirname(__file__), 'static','uploads')
+	dirs = os.path.join(basepath,session.get('username'))
+    
+
+
+	if request.method == 'POST':
 		flist = request.files.getlist("file[]")
 		
 		for f in flist:
 			try:
-				basepath = os.path.join(os.path.dirname(__file__), 'static','uploads')
+				basepath = os.path.join(os.path.dirname(__file__), 'static','uploads',session.get('username'))
 				format=f.filename[f.filename.index('.'):]
 				fileName=time.time()
 				if format in ('.jpg','.png','.jpeg','.HEIC','.jfif'):
 					format='.jpg'
-                if request.values['folder']=='0':
-				return render_template('upload.html',alert='Please choose a folder or creat a folder',dirs=dirs)
+					
+				if request.values['folder']=='0':
+					return render_template('wardrobe.html',alert='Please choose a folder',dirs=dirs)
 
-			elif request.values['folder']=='1':
-				if not os.path.isdir(os.path.join(basepath,session.get('username'),request.values['foldername'])):
-					os.mkdir(os.path.join(basepath,session.get('username'),request.values['foldername']))
-	
-            except:
-				return render_template('wardrobe.html',alert='你沒有選擇要上傳的檔案',dirs=dirs)
-            return redirect(url_for('upload'))
+				elif request.values['folder']=='1':
+					if not os.path.isdir(os.path.join(basepath,session.get('username'),request.values['foldername'])):
+						os.mkdir(os.path.join(basepath,session.get('username'),request.values['foldername']))
+						os.mkdir(os.path.join(basepath,session.get('username'),request.values['foldername'],'video'))
+						os.mkdir(os.path.join(basepath,session.get('username'),request.values['foldername'],'photo'))
+			except:
+				return render_template('wardrobe.html',alert='Please select a file',dirs=dirs)
+
+		return redirect(url_for('upload'))
 	return render_template('wardrobe.html',dirs=dirs)
-"""
+
 @app.route("/wardrobe", methods=['GET', 'POST'])
 @login_required
 def wardrobe():
     form = UpdateAccountForm()
     two_dimensional_list = [['001','尼龍'],['002','羽絨'],['003','棉']]
-    return render_template('wardrobe.html', form=form, title='Wardrobe', two_dimensional_list=two_dimensional_list)
-    
+    return render_template('wardrobe.html', form=form, title='Wardrobe',two_dimensional_list=two_dimensional_list)
+  
 @app.route('/data', methods=['GET', 'POST'])
 def data():
     id_value = request.form.get('datasource')
