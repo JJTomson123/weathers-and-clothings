@@ -100,7 +100,7 @@ def account():
     form = UpdateAccountForm()
     if form.validate_on_submit():
         if form.picture.data:
-            picture_file = save_picture(form.picture.data)
+            picture_file = save_picture1(form.picture.data)
             current_user.image_file = picture_file
         current_user.username = form.username.data
         current_user.email = form.email.data
@@ -117,8 +117,24 @@ def account():
 
 
 @app.route('/upload/', methods=['GET', 'POST'])
+def save_picture1(form_picture):
+    random_hex = secrets.token_hex(8)
+    _, f_ext = os.path.splitext(form_picture.filename)
+    picture_fn = random_hex + f_ext
+    preuse = "uip"
+    print(preuse)
+    cloth_path = "static/uploads/" + preuse
+    picture_path = os.path.join(app.root_path, cloth_path, picture_fn)
+
+    output_size = (125, 125)
+    i = Image.open(form_picture)
+    i.thumbnail(output_size)
+    i.save(picture_path)
+
+    return picture_fn
 def upload():
-	basepath = os.path.join(os.path.dirname(__file__), 'static','uploads')
+    
+	basepath = os.path.join(os.path.dirname(__file__), 'static/uploads')
 	dirs = os.path.join(basepath,session.get('username'))
     
 

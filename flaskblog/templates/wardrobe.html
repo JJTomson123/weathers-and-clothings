@@ -15,11 +15,13 @@
                   <form method="POST" action="" enctype="multipart/form-data">
                   <tr><td><input type="file" name="file[]"  accept=".jpg,.jpeg,.png,.jfif,.HEIC" multiple></td>
                   <tr><td>Choose Folder:
-                        <select id="folder" name=folder onchange="Choose(this.value)">
-                          {% for dir in dirs %}
-                            <option value={{dirs.index(dir)}}>{{dir}}</option>
-                          {% endfor %}
-                        </select>
+                  <form method="POST" action="{{ url_for('data') }}">
+                      <select name="datasource" method="POST" action="/post">
+                        {% for datasource1 in two_dimensional_list %}
+                        <option value= "{{datasource1[0]}}">{{datasource1[1]}}</option>"
+                        {% endfor %}
+                      </select>  
+                    </form>
                   </td></tr>
                   <tr><td><input type="hidden" id="foldername" name="foldername" value=""></td></tr>
                   <tr><td><input type="submit" value="upload" name="upload"></td></tr>
@@ -27,13 +29,7 @@
               </table>
             </div>
         </fieldset>
-        <form method="POST" action="{{ url_for('data') }}">
-            <select name="datasource" method="POST" action="/post">
-              {% for datasource1 in two_dimensional_list %}
-              <option value= "{{datasource1[0]}}">{{datasource1[1]}}</option>"
-              {% endfor %}
-            </select>  
-          </form>
+        
     </form>
 </div>
 {% endblock content %}
