@@ -10,7 +10,7 @@ from flask_login import login_user, current_user, logout_user, login_required
 
 
 
-
+uname = ""
 
 @app.route("/")
 @app.route("/home")
@@ -60,11 +60,13 @@ def register():
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
+    global uname
     if current_user.is_authenticated:
         return redirect(url_for('home'))
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
+        uname = user.username
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user, remember=form.remember.data)
             next_page = request.args.get('next')
@@ -110,7 +112,7 @@ def account():
     elif request.method == 'GET':
         form.username.data = current_user.username
         form.email.data = current_user.email
-    image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
+    image_file = url_for('static', filename=('uploads/'+ str(current_user.username) + "/" )+ current_user.image_file)
     return render_template('account.html', title='Account',
                            image_file=image_file, form=form)
 
@@ -118,11 +120,12 @@ def account():
 
 @app.route('/upload/', methods=['GET', 'POST'])
 def save_picture1(form_picture):
+    form = UpdateAccountForm()
     random_hex = secrets.token_hex(8)
     _, f_ext = os.path.splitext(form_picture.filename)
     picture_fn = random_hex + f_ext
-    preuse = "uip"
-    print(preuse)
+
+    preuse = str(form.username.data)
     cloth_path = "static/uploads/" + preuse
     picture_path = os.path.join(app.root_path, cloth_path, picture_fn)
 
