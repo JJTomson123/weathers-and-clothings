@@ -78,7 +78,6 @@ def logout():
     logout_user()
     return redirect(url_for('home'))
 
-
 def save_picture(form_picture):
     random_hex = secrets.token_hex(8)
     _, f_ext = os.path.splitext(form_picture.filename)
@@ -93,13 +92,14 @@ def save_picture(form_picture):
     return picture_fn
 
 
+
 @app.route("/account", methods=['GET', 'POST'])
 @login_required
 def account():
     form = UpdateAccountForm()
     if form.validate_on_submit():
         if form.picture.data:
-            picture_file = save_picture1(form.picture.data)
+            picture_file = save_picture(form.picture.data)
             current_user.image_file = picture_file
         current_user.username = form.username.data
         current_user.email = form.email.data
@@ -109,21 +109,20 @@ def account():
     elif request.method == 'GET':
         form.username.data = current_user.username
         form.email.data = current_user.email
-    image_file = url_for('static', filename=('uploads/'+ str(current_user.username) + "/" )+ current_user.image_file)
+    image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
     return render_template('account.html', title='Account',
                            image_file=image_file, form=form, weat=bkweather)
 
 
-
 @app.route('/upload/', methods=['GET', 'POST'])
-def save_picture1(form_picture):
+def upload(form_picture):
     form = UpdateAccountForm()
     random_hex = secrets.token_hex(8)
     _, f_ext = os.path.splitext(form_picture.filename)
     picture_fn = random_hex + f_ext
-
     preuse = str(form.username.data)
-    cloth_path = "static/uploads/" + preuse
+    choose_folder = 0
+    cloth_path = "static/uploads/" + preuse + "/" + choose_folder
     picture_path = os.path.join(app.root_path, cloth_path, picture_fn)
 
     output_size = (125, 125)
@@ -132,13 +131,10 @@ def save_picture1(form_picture):
     i.save(picture_path)
 
     return picture_fn
-def upload():
-    
-	basepath = os.path.join(os.path.dirname(__file__), 'static/uploads')
-	dirs = os.path.join(basepath,session.get('username'))
     
 
 
+<<<<<<< Updated upstream
 	if request.method == 'POST':
 		flist = request.files.getlist("file[]")
 		
@@ -163,18 +159,25 @@ def upload():
 
 		return redirect(url_for('upload'))
 	return render_template('wardrobe.html',dirs=dirs, weat=bkweather)
+=======
+>>>>>>> Stashed changes
 
 @app.route("/wardrobe", methods=['GET', 'POST'])
 @login_required
 def wardrobe():
     form = UpdateAccountForm()
+<<<<<<< Updated upstream
     two_dimensional_list = [['001','尼龍'],['002','羽絨'],['003','棉']]
     return render_template('wardrobe.html', form=form, title='Wardrobe',two_dimensional_list=two_dimensional_list, weat=bkweather)
+=======
+    two_dimensional_list = [['001','pants'],['002','coats']]
+    return render_template('wardrobe.html', form=form, title='Wardrobe',two_dimensional_list=two_dimensional_list)
+>>>>>>> Stashed changes
   
 @app.route('/data', methods=['GET', 'POST'])
 def data():
     id_value = request.form.get('datasource')
-    two_dimensional_list = [['001','尼龍'],['002','羽絨'],['003','棉']]
+    two_dimensional_list = [['001','pants'],['002','coats']]
     def description_value(select):
         for data in two_dimensional_list:
             if data[0] == select:

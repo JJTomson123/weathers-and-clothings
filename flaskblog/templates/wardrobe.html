@@ -1,35 +1,28 @@
 {% extends "layout.html" %}
 {% block content %}
-<script type="text/javascript" src="static/choose.js"></script>
 <div class="content-section">
-
     <form method="POST" action="" enctype="multipart/form-data">
-        {{ form.hidden_tag() }}
         <fieldset class="form-group">
-            <legend class="border-bottom mb-4">My Wardrobe</legend>   
-            <div>
-                <h2>Upload</h2>
-                <table>  
-                  <tr><td><span>{{alert}}</span></td></tr>
-                  <tr><td>File Path:</td></tr>
-                  <form method="POST" action="" enctype="multipart/form-data">
-                  <tr><td><input type="file" name="file[]"  accept=".jpg,.jpeg,.png,.jfif,.HEIC" multiple></td>
-                  <tr><td>Choose Folder:
-                  <form method="POST" action="{{ url_for('data') }}">
-                      <select name="datasource" method="POST" action="/post">
-                        {% for datasource1 in two_dimensional_list %}
-                        <option value= "{{datasource1[0]}}">{{datasource1[1]}}</option>"
+            <legend class="border-bottom mb-4">My wardrobe</legend>
+            <div>  
+              <table>
+                <tr><td><span>{{alert}}</span></td></tr>
+                <tr><td>File Path:</td></tr>
+              
+                <tr><td><input type="file" name="file[]"  accept=".jpg,.jpeg,.png,.jfif,.HEIC" multiple></td>
+                <tr><td>Choose Folder:
+                      <select id="folder" name=folder onchange="Choose(this.value)">
+                        {% for dir in two_dimensional_list %}
+                          <option value={{dirs.index(dir)}}>{{dir}}</option>
                         {% endfor %}
-                      </select>  
-                    </form>
-                  </td></tr>
-                  <tr><td><input type="hidden" id="foldername" name="foldername" value=""></td></tr>
-                  <tr><td><input type="submit" value="upload" name="upload"></td></tr>
-                </form>
-              </table>
+                      </select>
+                </td></tr>
+            </table>
             </div>
         </fieldset>
-        
+        <div class="form-group">
+            {{ form.submit(class="btn btn-outline-info") }}
+        </div>
     </form>
 </div>
 {% endblock content %}
