@@ -113,7 +113,6 @@ def account():
     return render_template('account.html', title='Account',
                            image_file=image_file, form=form, weat=bkweather)
 
-
 @app.route('/upload/', methods=['GET', 'POST'])
 def upload(form_picture):
     form = UpdateAccountForm()
@@ -134,6 +133,7 @@ def upload(form_picture):
     
 
 
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
 	if request.method == 'POST':
 		flist = request.files.getlist("file[]")
@@ -161,15 +161,20 @@ def upload(form_picture):
 	return render_template('wardrobe.html',dirs=dirs, weat=bkweather)
 =======
 >>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
 
 @app.route("/wardrobe", methods=['GET', 'POST'])
 @login_required
 def wardrobe():
     form = UpdateAccountForm()
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     two_dimensional_list = [['001','尼龍'],['002','羽絨'],['003','棉']]
     return render_template('wardrobe.html', form=form, title='Wardrobe',two_dimensional_list=two_dimensional_list, weat=bkweather)
 =======
+=======
+>>>>>>> Stashed changes
     two_dimensional_list = [['001','pants'],['002','coats']]
     return render_template('wardrobe.html', form=form, title='Wardrobe',two_dimensional_list=two_dimensional_list)
 >>>>>>> Stashed changes
