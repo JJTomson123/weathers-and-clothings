@@ -8,8 +8,8 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main1.css') }}">
-
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main5.css') }}">
+    
     {% if title %}
         <title>Flask Blog - {{ title }}</title>
     {% else %}
@@ -47,6 +47,11 @@
       </nav>
     </header>
     <main role="main" class="container">
+      <div class="video-container">
+            <video autoplay loop muted>
+                <source src={{weat}} type="video/mp4">
+            </video>
+      </div>
       <div class="row">
         <div class="col-md">
           {% with messages = get_flashed_messages(with_categories=true) %}
@@ -62,7 +67,6 @@
         </div>
       </div>
     </main>
-
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

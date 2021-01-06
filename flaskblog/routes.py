@@ -11,7 +11,7 @@ import csv
 
 
 
-
+bkweather = "/static/cloudy.mp4"
 @app.route("/")
 @app.route("/home")
 def home():
@@ -20,7 +20,7 @@ def home():
         bg = "/static/fr.jpg"
     else:
         bg = "/static/bk.jpg"
-    return render_template('home.html', bg=bg)
+    return render_template('home.html', bg=bg, weat=bkweather)
 
 #here is weather html
 @app.route("/weather")
@@ -31,10 +31,9 @@ def weather():
     return render_template('weather.html', title='Weather',**locals())
     #return render_template('weather.html', title='Weather')
 
-
 @app.route("/about")
 def about():
-    return render_template('about.html', title='About')
+    return render_template('about.html', title='About', weat=bkweathert)
 
 
 @app.route("/register", methods=['GET', 'POST'])
@@ -46,19 +45,20 @@ def register():
         #here will create new user folder when register
         basepath = os.path.join(os.path.dirname(__file__), 'static','uploads')
         os.mkdir(os.path.join(basepath,request.values['username']))
-        os.mkdir(os.path.join(basepath,request.values['username'],'coldday'))
-        os.mkdir(os.path.join(basepath,request.values['username'],'coldday','rainning'))
-        os.mkdir(os.path.join(basepath,request.values['username'],'coldday','sunshine'))
-        os.mkdir(os.path.join(basepath,request.values['username'],'hotday'))
-        os.mkdir(os.path.join(basepath,request.values['username'],'hotday','rainning'))
-        os.mkdir(os.path.join(basepath,request.values['username'],'hotday','sunshine'))
+        os.mkdir(os.path.join(basepath,request.values['username'],'pants'))
+        os.mkdir(os.path.join(basepath,request.values['username'],'pants','trousers'))
+        os.mkdir(os.path.join(basepath,request.values['username'],'pants','shorts'))
+        os.mkdir(os.path.join(basepath,request.values['username'],'coats'))
+        os.mkdir(os.path.join(basepath,request.values['username'],'coats','coats'))
+        os.mkdir(os.path.join(basepath,request.values['username'],'coats','jackets'))
+        os.mkdir(os.path.join(basepath,request.values['username'],'coats','rainwear'))
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
         user = User(username=form.username.data, email=form.email.data, password=hashed_password)
         db.session.add(user)
         db.session.commit()
         flash('Your account has been created! You are now able to log in', 'success')
         return redirect(url_for('login'))
-    return render_template('register.html', title='Register', form=form)
+    return render_template('register.html', title='Register', form=form, weat=bkweather)
 
 
 @app.route("/login", methods=['GET', 'POST'])
@@ -74,7 +74,7 @@ def login():
             return redirect(next_page) if next_page else redirect(url_for('home'))
         else:
             flash('Login Unsuccessful. Please check email and password', 'danger')
-    return render_template('login.html', title='Login', form=form)
+    return render_template('login.html', title='Login', form=form, weat=bkweather)
 
 
 @app.route("/logout")
@@ -103,7 +103,7 @@ def account():
     form = UpdateAccountForm()
     if form.validate_on_submit():
         if form.picture.data:
-            picture_file = save_picture(form.picture.data)
+            picture_file = save_picture1(form.picture.data)
             current_user.image_file = picture_file
         current_user.username = form.username.data
         current_user.email = form.email.data
@@ -113,46 +113,68 @@ def account():
     elif request.method == 'GET':
         form.username.data = current_user.username
         form.email.data = current_user.email
-    image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
+    image_file = url_for('static', filename=('uploads/'+ str(current_user.username) + "/" )+ current_user.image_file)
     return render_template('account.html', title='Account',
-                           image_file=image_file, form=form)
+                           image_file=image_file, form=form, weat=bkweather)
 
 
-"""
-@app.route('/upload', methods=['GET', 'POST'])
+
+@app.route('/upload/', methods=['GET', 'POST'])
+def save_picture1(form_picture):
+    form = UpdateAccountForm()
+    random_hex = secrets.token_hex(8)
+    _, f_ext = os.path.splitext(form_picture.filename)
+    picture_fn = random_hex + f_ext
+
+    preuse = str(form.username.data)
+    cloth_path = "static/uploads/" + preuse
+    picture_path = os.path.join(app.root_path, cloth_path, picture_fn)
+
+    output_size = (125, 125)
+    i = Image.open(form_picture)
+    i.thumbnail(output_size)
+    i.save(picture_path)
+
+    return picture_fn
 def upload():
-    basepath = os.path.join(os.path.dirname(__file__), 'static','uploads')
-	dirs = os.listdir(os.path.join(basepath,session.get('username')))
-    dirs.insert(0,'New Folder')
-	dirs.insert(0,'Not Choose')
-    if request.method == 'POST':
+    
+	basepath = os.path.join(os.path.dirname(__file__), 'static/uploads')
+	dirs = os.path.join(basepath,session.get('username'))
+    
+
+
+	if request.method == 'POST':
 		flist = request.files.getlist("file[]")
 		
 		for f in flist:
 			try:
-				basepath = os.path.join(os.path.dirname(__file__), 'static','uploads')
+				basepath = os.path.join(os.path.dirname(__file__), 'static','uploads',session.get('username'))
 				format=f.filename[f.filename.index('.'):]
 				fileName=time.time()
 				if format in ('.jpg','.png','.jpeg','.HEIC','.jfif'):
 					format='.jpg'
-                if request.values['folder']=='0':
-				return render_template('upload.html',alert='Please choose a folder or creat a folder',dirs=dirs)
+					
+				if request.values['folder']=='0':
+					return render_template('wardrobe.html',alert='Please choose a folder',dirs=dirs, weat=bkweather)
 
-			elif request.values['folder']=='1':
-				if not os.path.isdir(os.path.join(basepath,session.get('username'),request.values['foldername'])):
-					os.mkdir(os.path.join(basepath,session.get('username'),request.values['foldername']))
-	
-            except:
-				return render_template('wardrobe.html',alert='你沒有選擇要上傳的檔案',dirs=dirs)
-            return redirect(url_for('upload'))
-	return render_template('wardrobe.html',dirs=dirs)
-"""
+				elif request.values['folder']=='1':
+					if not os.path.isdir(os.path.join(basepath,session.get('username'),request.values['foldername'])):
+						os.mkdir(os.path.join(basepath,session.get('username'),request.values['foldername']))
+						os.mkdir(os.path.join(basepath,session.get('username'),request.values['foldername'],'video'))
+						os.mkdir(os.path.join(basepath,session.get('username'),request.values['foldername'],'photo'))
+			except:
+				return render_template('wardrobe.html',alert='Please select a file',dirs=dirs, weat=bkweather)
+
+		return redirect(url_for('upload'))
+	return render_template('wardrobe.html',dirs=dirs, weat=bkweather)
+
 @app.route("/wardrobe", methods=['GET', 'POST'])
 @login_required
 def wardrobe():
+    form = UpdateAccountForm()
     two_dimensional_list = [['001','尼龍'],['002','羽絨'],['003','棉']]
-    return render_template('wardrobe.html', title='Wardrobe', two_dimensional_list=two_dimensional_list)
-    
+    return render_template('wardrobe.html', form=form, title='Wardrobe',two_dimensional_list=two_dimensional_list, weat=bkweather)
+  
 @app.route('/data', methods=['GET', 'POST'])
 def data():
     id_value = request.form.get('datasource')
