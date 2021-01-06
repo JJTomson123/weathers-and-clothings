@@ -33,7 +33,7 @@ def weather():
 
 @app.route("/about")
 def about():
-    return render_template('about.html', title='About', weat=bkweathert)
+    return render_template('about.html', title='About', weat=bkweather)
 
 
 @app.route("/register", methods=['GET', 'POST'])
