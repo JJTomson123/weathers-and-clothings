@@ -7,6 +7,7 @@ from flaskblog import app, db, bcrypt
 from flaskblog.forms import RegistrationForm, LoginForm, UpdateAccountForm
 from flaskblog.models import User, Post
 from flask_login import login_user, current_user, logout_user, login_required
+import csv
 
 
 
@@ -24,7 +25,11 @@ def home():
 #here is weather html
 @app.route("/weather")
 def weather():
-    return render_template('weather.html', title='Weather')
+    with open('./flaskblog/cwb_weather_data/taiwan_cwb.csv', newline='',encoding='utf-8') as f:
+        reader = csv.reader(f)
+        data = list(reader)
+    return render_template('weather.html', title='Weather',**locals())
+    #return render_template('weather.html', title='Weather')
 
 
 @app.route("/about")
