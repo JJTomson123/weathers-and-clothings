@@ -10,7 +10,7 @@ from flask_login import login_user, current_user, logout_user, login_required
 
 
 
-
+bkweather = "/static/cloudy.mp4"
 @app.route("/")
 @app.route("/home")
 def home():
@@ -19,17 +19,17 @@ def home():
         bg = "/static/fr.jpg"
     else:
         bg = "/static/bk.jpg"
-    return render_template('home.html', bg=bg)
+    return render_template('home.html', bg=bg, weat=bkweather)
 
 #here is weather html
 @app.route("/weather")
 def weather():
-    return render_template('weather.html', title='Weather')
+    return render_template('weather.html', title='Weather', weat=bkweather)
 
 
 @app.route("/about")
 def about():
-    return render_template('about.html', title='About')
+    return render_template('about.html', title='About', weat=bkweathert)
 
 
 @app.route("/register", methods=['GET', 'POST'])
@@ -54,7 +54,7 @@ def register():
         db.session.commit()
         flash('Your account has been created! You are now able to log in', 'success')
         return redirect(url_for('login'))
-    return render_template('register.html', title='Register', form=form)
+    return render_template('register.html', title='Register', form=form, weat=bkweather)
 
 
 @app.route("/login", methods=['GET', 'POST'])
@@ -70,7 +70,7 @@ def login():
             return redirect(next_page) if next_page else redirect(url_for('home'))
         else:
             flash('Login Unsuccessful. Please check email and password', 'danger')
-    return render_template('login.html', title='Login', form=form)
+    return render_template('login.html', title='Login', form=form, weat=bkweather)
 
 
 @app.route("/logout")
@@ -111,7 +111,7 @@ def account():
         form.email.data = current_user.email
     image_file = url_for('static', filename=('uploads/'+ str(current_user.username) + "/" )+ current_user.image_file)
     return render_template('account.html', title='Account',
-                           image_file=image_file, form=form)
+                           image_file=image_file, form=form, weat=bkweather)
 
 
 
@@ -151,7 +151,7 @@ def upload():
 					format='.jpg'
 					
 				if request.values['folder']=='0':
-					return render_template('wardrobe.html',alert='Please choose a folder',dirs=dirs)
+					return render_template('wardrobe.html',alert='Please choose a folder',dirs=dirs, weat=bkweather)
 
 				elif request.values['folder']=='1':
 					if not os.path.isdir(os.path.join(basepath,session.get('username'),request.values['foldername'])):
@@ -159,17 +159,17 @@ def upload():
 						os.mkdir(os.path.join(basepath,session.get('username'),request.values['foldername'],'video'))
 						os.mkdir(os.path.join(basepath,session.get('username'),request.values['foldername'],'photo'))
 			except:
-				return render_template('wardrobe.html',alert='Please select a file',dirs=dirs)
+				return render_template('wardrobe.html',alert='Please select a file',dirs=dirs, weat=bkweather)
 
 		return redirect(url_for('upload'))
-	return render_template('wardrobe.html',dirs=dirs)
+	return render_template('wardrobe.html',dirs=dirs, weat=bkweather)
 
 @app.route("/wardrobe", methods=['GET', 'POST'])
 @login_required
 def wardrobe():
     form = UpdateAccountForm()
     two_dimensional_list = [['001','尼龍'],['002','羽絨'],['003','棉']]
-    return render_template('wardrobe.html', form=form, title='Wardrobe',two_dimensional_list=two_dimensional_list)
+    return render_template('wardrobe.html', form=form, title='Wardrobe',two_dimensional_list=two_dimensional_list, weat=bkweather)
   
 @app.route('/data', methods=['GET', 'POST'])
 def data():
