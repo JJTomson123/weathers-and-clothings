@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 ﻿CITY,DISTRICT,GEOCODE,DAY,TIME,T,TD,RH,WD,WS,BF,AT,Wx,Wx_n,get_day
+=======
+﻿CITY,DISTRICT,GEOCODE,DAY,TIME,T,TD,RH,WD,WS,BF,AT,Wx,Wx_n,PoP6h,PoP12h,get_day
+>>>>>>> wardrobe
