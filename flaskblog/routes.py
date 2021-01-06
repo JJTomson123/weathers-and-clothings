@@ -10,6 +10,7 @@ from flask_login import login_user, current_user, logout_user, login_required
 
 
 
+uname = ""
 
 @app.route("/")
 @app.route("/home")
@@ -59,11 +60,13 @@ def register():
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
+    global uname
     if current_user.is_authenticated:
         return redirect(url_for('home'))
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
+        uname = user.username
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user, remember=form.remember.data)
             next_page = request.args.get('next')
