@@ -30,7 +30,6 @@ def weather():
         data = list(reader)
     return render_template('weather.html', title='Weather',**locals())
     #return render_template('weather.html', title='Weather')
-
 @app.route("/about")
 def about():
     return render_template('about.html', title='About', weat=bkweather)
