@@ -1,5 +1,77 @@
 {% extends "layout.html" %}
-{% block content %}
-    <h1>This is weather html, and you can add your stuff here</h1>
+{% block content %} 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <style>
+#customers {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#customers td, #customers th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#customers tr:nth-child(even){background-color: #f2f2f2;}
+#customers tr:nth-child(odd){background-color: #f2f2f2;}
+
+#customers tr:hover {background-color: #ddd;}
+
+#customers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #4CAF50;
+  color: white;
+}
+</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>weather</title>
+</head>
+<body>
+   
+        <h1>天氣預報</h1>
+        <p>接下來天氣的預測~~~</p>
+            <table id="customers">
+          <tr>
+            <th>日期</th>
+            <td> {{data[50][3]}} </td>
+            <td> {{data[53][3]}} </td>
+            <td> {{data[56][3]}} </td>
+            <td> {{data[59][3]}} </td>
+            <td> {{data[62][3]}} </td>
+            <td> {{data[65][3]}} </td>
+            <td> {{data[68][3]}} </td>
+            <td> {{data[71][3]}} </td>
+          </tr>
+          <tr>
+            <th>時間</th>
+            <td> {{data[50][4]}} </td>
+            <td> {{data[53][4]}} </td>
+            <td> {{data[56][4]}} </td>
+            <td> {{data[59][4]}} </td>
+            <td> {{data[62][4]}} </td>
+            <td> {{data[65][4]}} </td>
+            <td> {{data[68][4]}} </td>
+            <td> {{data[71][4]}} </td>
+          </tr>
+          <tr>
+            <th>天氣</th>
+            <td> {{data[50][12]}} </td>
+            <td> {{data[53][12]}} </td>
+            <td> {{data[56][12]}} </td>
+            <td> {{data[59][12]}} </td>
+            <td> {{data[62][12]}} </td>
+            <td> {{data[65][12]}} </td>
+            <td> {{data[68][12]}} </td>
+            <td> {{data[71][12]}} </td>
+          </tr>  
+            </table>
+    
+
 
 {% endblock content %}
