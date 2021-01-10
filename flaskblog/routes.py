@@ -15,7 +15,10 @@ with open('./flaskblog/cwb_weather_data/taiwan_cwb.csv', newline='',encoding='ut
     reader = csv.reader(f)
     data = list(reader)
 
-wea = data[50][12]
+#wea = data[50][12]
+#wea = "晴"
+#wea = "陰"
+wea = ""
 if wea == "晴":
     bkweather = "/static/movie/sunnyday.mp4"
 elif wea == "陰":
