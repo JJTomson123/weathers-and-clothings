@@ -85,6 +85,12 @@ body {
         left: 0;
         width: 100%;
   }
+  .closet-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+  }
 
 #column1{
   color:  #ffffff
@@ -95,6 +101,5 @@ body {
 #sidebar1{
   color: #333
   min-height: 700px;
-  float: left;
-  width: 500px;
+  margin-left: 500px;
 }
