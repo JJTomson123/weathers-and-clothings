@@ -10,8 +10,10 @@ from flask_login import login_user, current_user, logout_user, login_required
 import csv
 
 
-
-bkweather = "/static/movie/sunny2.mp4"
+with open('./flaskblog/cwb_weather_data/taiwan_cwb.csv', newline='',encoding='utf-8') as f:
+    reader = csv.reader(f)
+    data = list(reader)
+bkweather = "/static/movie/cloudy.mp4"
 @app.route("/")
 @app.route("/home")
 def home():
@@ -28,7 +30,7 @@ def weather():
     with open('./flaskblog/cwb_weather_data/taiwan_cwb.csv', newline='',encoding='utf-8') as f:
         reader = csv.reader(f)
         data = list(reader)
-    return render_template('weather.html', title='Weather',**locals())
+    return render_template('weather.html', title='Weather',**locals(), weat=bkweather)
     #return render_template('weather.html', title='Weather')
 
 @app.route("/about")
