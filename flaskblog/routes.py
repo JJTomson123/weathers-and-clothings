@@ -32,7 +32,6 @@ def weather():
         reader = csv.reader(f)
         data = list(reader)
     return render_template('weather.html', title='Weather',**locals(), weat=bkweather)
-    #return render_template('weather.html', title='Weather')
 
 @app.route("/about")
 def about():
@@ -48,13 +47,13 @@ def register():
         #here will create new user folder when register
         basepath = os.path.join(os.path.dirname(__file__), 'static','uploads')
         os.mkdir(os.path.join(basepath,request.values['username']))
-        os.mkdir(os.path.join(basepath,request.values['username'],'pants'))
-        os.mkdir(os.path.join(basepath,request.values['username'],'pants','trousers'))
-        os.mkdir(os.path.join(basepath,request.values['username'],'pants','shorts'))
-        os.mkdir(os.path.join(basepath,request.values['username'],'coats'))
-        os.mkdir(os.path.join(basepath,request.values['username'],'coats','coats'))
-        os.mkdir(os.path.join(basepath,request.values['username'],'coats','jackets'))
-        os.mkdir(os.path.join(basepath,request.values['username'],'coats','rainwear'))
+        os.mkdir(os.path.join(basepath,request.values['username'],'褲'))
+        os.mkdir(os.path.join(basepath,request.values['username'],'褲','短褲'))
+        os.mkdir(os.path.join(basepath,request.values['username'],'褲','長褲'))
+        os.mkdir(os.path.join(basepath,request.values['username'],'上衣'))
+        os.mkdir(os.path.join(basepath,request.values['username'],'上衣','大褸'))
+        os.mkdir(os.path.join(basepath,request.values['username'],'上衣','短袖'))
+        os.mkdir(os.path.join(basepath,request.values['username'],'上衣','雨衣'))
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
         user = User(username=form.username.data, email=form.email.data, password=hashed_password)
         db.session.add(user)
@@ -130,7 +129,7 @@ def account():
 @login_required
 def wardrobe():
     id_value = request.form.get('datasource')
-    two_dimensional_list = [['001','pants/shorts'],['002','pants/trousers'],['003','coats/coats'],['004','coats/jackets'],['005','coats/rainwear']]
+    two_dimensional_list = [['001','褲/短褲'],['002','褲/長褲'],['003','上衣/大褸'],['004','上衣/短袖'],['005','上衣/雨衣']]
 
     def description_value(select):
         for data in two_dimensional_list:
