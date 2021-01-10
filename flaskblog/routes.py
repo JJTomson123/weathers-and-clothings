@@ -142,7 +142,7 @@ def wardrobe():
             picture_file = upload(form.picture.data,ip)
         db.session.commit()
         return redirect(url_for('wardrobe'))
-    return render_template('wardrobe2.html', title='Wardrobe', form=form, two_dimensional_list=two_dimensional_list, weat=bkweather)
+    return render_template('wardrobe.html', title='Wardrobe', form=form, two_dimensional_list=two_dimensional_list, weat=bkweather)
   
 
 def upload(form_picture, path1):
