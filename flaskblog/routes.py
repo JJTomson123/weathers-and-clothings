@@ -15,12 +15,13 @@ bkweather = "/static/movie/sunny2.mp4"
 @app.route("/")
 @app.route("/home")
 def home():
+    cloth_path = "/static/uploads/as/coats/007ca61f4814aea4.JPG"
     n = 15
     if n > 20:
         bg = "/static/fr.jpg"
     else:
         bg = "/static/bk.jpg"
-    return render_template('home.html', bg=bg, weat=bkweather)
+    return render_template('home.html', bg=bg, weat=bkweather, j=cloth_path)
 
 #here is weather html
 @app.route("/weather")
@@ -28,7 +29,7 @@ def weather():
     with open('./flaskblog/cwb_weather_data/taiwan_cwb.csv', newline='',encoding='utf-8') as f:
         reader = csv.reader(f)
         data = list(reader)
-    return render_template('weather.html', title='Weather',**locals())
+    return render_template('weather.html', title='Weather',**locals(), weat=bkweather)
     #return render_template('weather.html', title='Weather')
 
 @app.route("/about")
@@ -128,6 +129,8 @@ def account():
 def wardrobe():
     id_value = request.form.get('datasource')
     two_dimensional_list = [['001','pants'],['002','coats']]
+    two_dimensional_list2 = [['001','shorts'],['002','trousers']]
+    two_dimensional_list3 = [['001','coats'],['002','jackets'],['003','rainwear']]
     def description_value(select):
         for data in two_dimensional_list:
             if data[0] == select:
@@ -157,3 +160,4 @@ def upload(form_picture, path1):
     i.save(picture_path)
 
     return picture_fn
+    

@@ -5,9 +5,15 @@ from bs4 import BeautifulSoup
 import datetime
 import os
 import pyodbc
+<<<<<<< Updated upstream
 import urllib.request
 import zipfile 
 import lxml
+=======
+import lxml
+import urllib.request
+import zipfile
+>>>>>>> Stashed changes
 def getw():
     # set dir 
     today = str(datetime.date.today())
@@ -15,6 +21,10 @@ def getw():
     if not os.path.exists(cwb_data):
         os.mkdir(cwb_data)
     # connect api
+<<<<<<< Updated upstream
+=======
+ 
+>>>>>>> Stashed changes
     res ="http://opendata.cwb.gov.tw/opendataapi?dataid=F-D0047-093&authorizationkey=CWB-3FB0188A-5506-41BE-B42A-3785B42C3823"
     urllib.request.urlretrieve(res,"F-D0047-093.zip")
     f=zipfile.ZipFile('F-D0047-093.zip')
@@ -87,3 +97,7 @@ def getw():
     save_name = os.path.join(file_path,cwb_data,save_name)
     df.to_csv(save_name,index=False,encoding="utf_8_sig")
 
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
