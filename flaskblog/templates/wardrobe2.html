@@ -4,7 +4,7 @@
         <form method="POST" action="" enctype="multipart/form-data">
             {{ form.hidden_tag() }}
             <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Account Info</legend>
+                <legend class="border-bottom mb-4">My Wardrobe</legend>
 
                 <div class="form-group">
                     {{ form.picture.label() }}
@@ -15,6 +15,13 @@
                         {% endfor %}
                     {% endif %}
                 </div>
+                
+                    <select name="datasource" method="POST" action="/post">
+                      {% for datasource1 in two_dimensional_list %}
+                      <option value= "{{datasource1[0]}}">{{datasource1[1]}}</option>"
+                      {% endfor %}
+                    </select>  
+
             </fieldset>
             <div class="form-group">
                 {{ form.submit(class="btn btn-outline-info") }}

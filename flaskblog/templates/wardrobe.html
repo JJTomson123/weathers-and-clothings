@@ -10,11 +10,16 @@
             <div>
                 <h2>Upload</h2>
                 <table>  
-                  <tr><td><span>{{alert}}</span></td></tr>
-                  <tr><td>File Path:</td></tr>
-                  <form method="POST" action="" enctype="multipart/form-data">
-                  <tr><td><input type="file" name="file[]"  accept=".jpg,.jpeg,.png,.jfif,.HEIC" multiple></td>
-                  <tr><td>Choose Folder:
+                  <div class="form-group">
+                    {{ form.picture.label() }}
+                    {{ form.picture(class="form-control-file") }}
+                    {% if form.picture.errors %}
+                        {% for error in form.picture.errors %}
+                            <span class="text-danger">{{ error }}</span></br>
+                        {% endfor %}
+                    {% endif %}
+                  </div>
+
                   <form method="POST" action="{{ url_for('data') }}">
                       <select name="datasource" method="POST" action="/post">
                         {% for datasource1 in two_dimensional_list %}

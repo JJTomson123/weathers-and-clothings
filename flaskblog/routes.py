@@ -122,43 +122,38 @@ def account():
 
 
 
-@app.route('/upload/', methods=['GET', 'POST'])
-def save_picture1(form_picture):
+
+@app.route("/wardrobe", methods=['GET', 'POST'])
+@login_required
+def wardrobe():
+    id_value = request.form.get('datasource')
+    two_dimensional_list = [['001','pants'],['002','coats']]
+    def description_value(select):
+        for data in two_dimensional_list:
+            if data[0] == select:
+                return data[1]
+    ip = description_value(id_value)
+    form = ImagesForm()
+    if form.validate_on_submit():
+        if form.picture.data:
+            picture_file = upload(form.picture.data,ip)
+        db.session.commit()
+        return redirect(url_for('wardrobe'))
+    return render_template('wardrobe2.html', title='Wardrobe', form=form, two_dimensional_list=two_dimensional_list, weat=bkweather)
+  
+
+def upload(form_picture, path1):
     form = ImagesForm()
     random_hex = secrets.token_hex(8)
     _, f_ext = os.path.splitext(form_picture.filename)
     picture_fn = random_hex + f_ext
+    pa=str(path1)
     preuse = str(current_user.username)
-    cloth_path = "static/uploads/" + preuse
-    print(cloth_path)
+    cloth_path = "static/uploads/" + preuse+"/"+pa
     picture_path = os.path.join(app.root_path, cloth_path, picture_fn)
-
     output_size = (125, 125)
     i = Image.open(form_picture)
     i.thumbnail(output_size)
     i.save(picture_path)
 
     return picture_fn
-
-
-@app.route("/wardrobe", methods=['GET', 'POST'])
-@login_required
-def wardrobe():
-    form = ImagesForm()
-    if form.validate_on_submit():
-        if form.picture.data:
-            picture_file = save_picture1(form.picture.data)
-        db.session.commit()
-        return redirect(url_for('wardrobe'))
-    two_dimensional_list = [['001','clothes'],['002','pants'],['003','coats']]
-    return render_template('wardrobe2.html', title='Wardrobe', form=form, two_dimensional_list=two_dimensional_list, weat=bkweather)
-  
-@app.route('/data', methods=['GET', 'POST'])
-def data():
-    id_value = request.form.get('datasource')
-    two_dimensional_list = [['001','尼龍'],['002','羽絨'],['003','棉']]
-    def description_value(select):
-        for data in two_dimensional_list:
-            if data[0] == select:
-                return data[1]
-    return description_value(id_value)
