@@ -17,9 +17,9 @@
                 </div>
                 
                     <select name="datasource" method="POST" action="/post">
-                      {% for datasource1 in two_dimensional_list %}
-                      <option value= "{{datasource1[0]}}">{{datasource1[1]}}</option>"
-                      {% endfor %}
+                        {% for datasource1 in two_dimensional_list %}
+                        <option value= "{{datasource1[0]}}" selected>{{datasource1[1]}}</option>
+                        {% endfor %}
                     </select>  
 
             </fieldset>

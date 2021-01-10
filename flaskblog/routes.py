@@ -130,9 +130,8 @@ def account():
 @login_required
 def wardrobe():
     id_value = request.form.get('datasource')
-    two_dimensional_list = [['001','pants'],['002','coats']]
-    two_dimensional_list2 = [['001','shorts'],['002','trousers']]
-    two_dimensional_list3 = [['001','coats'],['002','jackets'],['003','rainwear']]
+    two_dimensional_list = [['001','pants/shorts'],['002','pants/trousers'],['003','coats/coats'],['004','coats/jackets'],['005','coats/rainwear']]
+
     def description_value(select):
         for data in two_dimensional_list:
             if data[0] == select:
