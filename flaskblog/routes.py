@@ -162,3 +162,34 @@ def upload(form_picture, path1):
 
     return picture_fn
     
+@app.route('/album/', methods=['POST', 'GET'])
+def album():
+
+	colspan=int(int(session.get('width'))/150)
+	if colspan>7:
+		colspan=7
+	basepath = os.path.join(os.path.dirname(__file__), 'static','uploads')
+	dirs=os.listdir(os.path.join(basepath,session.get('username')))
+	dirs.insert(0,'ALL')
+	dirs.insert(0,'')
+
+	dict2={} #record all folder has what number name
+
+	for dir in dirs:
+		if dir == "ALL" or dir == '':
+			continue
+		dict2[dir]={'photo':[],'video':[]}
+		path=os.path.join(basepath,session.get('username'),dir,'photo')
+		for lists in os.listdir(path):
+			dict2[dir]['photo'].append(lists)
+		path=os.path.join(basepath,session.get('username'),dir,'video')
+		for lists in os.listdir(path):
+			dict2[dir]['video'].append(lists)
+	if request.method == 'POST':
+		if request.values['folder']!='0' and request.values['folder']!='1':
+			return render_template('album.html',dirs=dirs,colspan=colspan, \
+				filefolder=[dirs[int(request.values['folder'])]],files=dict2,username=session.get('username'))
+		elif request.values['folder'] =='1':
+			return render_template('album.html',dirs=dirs, colspan=colspan,\
+				filefolder=dirs[2:],files=dict2,username=session.get('username'))
+	return render_template('album.html',dirs=dirs, files=dict2, filefolder=dirs[2:],colspan=colspan,username=session.get('username'))
