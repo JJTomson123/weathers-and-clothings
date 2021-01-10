@@ -23,7 +23,7 @@ def home():
         bg = "/static/fr.jpg"
     else:
         bg = "/static/bk.jpg"
-    return render_template('home.html', bg=bg, weat=bkweather, j=cloth_path)
+    return render_template('home.html', bg=bg, weat=bkweather, clothes=cloth_path)
 
 #here is weather html
 @app.route("/weather")
