@@ -28,7 +28,6 @@ elif "雨" in list(wea):
 else:
     bkweather = "/static/movie/sunnycloudy.mp4"
 
-@app.route("/")
 @app.route("/home")
 def home():
     temp = (int(data[50][5]) + int(data[50][6]))//2
@@ -47,6 +46,7 @@ def home():
     return render_template('home.html', weat=bkweather, down=down)
 
 #here is weather html
+@app.route("/")
 @app.route("/weather")
 def weather():
 
