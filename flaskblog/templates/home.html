@@ -21,13 +21,13 @@
             <br>
             <br>
             <br>
-            <img src=/static/image/clothes1.png width="320" height="320"><img src="/static/jeans.jpg" width="320" height="320">
+            <img src={{j}} width="300" height="300"><img src="/static/jeans.jpg" width="300" height="300">
         </div>
         <div id="column2">
             <br>
             <br>
             <br>
-            <br><br>
+            <br>
 
             <p id="demo" class="test" style="color:#FFDCB9" ></p>
 
@@ -41,13 +41,13 @@
                 return "下雨下個不停，心情有沒有也跟著受影響了呢？選衣最好選一些比較跣水乾爽的衣服，可以選尼龍質地的衣服，蕾絲和絲質的衣料也是好選擇！下雨天鞋子當然最好選拖鞋或涼鞋～一些比較厚底的涼鞋是最好的";
               }
               else if (a==2){
-                return "    日曬很強的時候，搭配上帽子的穿搭也很    不錯選衣最好選一些比較透氣且薄薄的衣服，材質透氣的效果好，因此能夠讓你度過清涼的一天";
+                return "日曬很強的時候，搭配上帽子的穿搭也很不錯選衣最好選一些比較透氣且薄薄的衣服，材質透氣的效果好，因此能夠讓你度過清涼的一天";
             }
               else{
                 return "陰天的時候，從家裡出門的時候明明還很熱，結果天氣一下又轉涼了適合多穿（帶）一件薄外套如果選擇薄一點材質當披肩造型，就算放入包包裡時也不會太重。不用擔心留太多汗和被雨水弄濕衣服，因此可以選擇更多不同材質的衣服進行搭配";
                 }}
               
-            document.getElementById("demo").innerHTML = myFunction(1);
+            document.getElementById("demo").innerHTML = myFunction(2);
             
             </script>
 {% endblock content %}
