@@ -17,12 +17,13 @@ bkweather = "/static/movie/cloudy.mp4"
 @app.route("/")
 @app.route("/home")
 def home():
+    cloth_path = "/static/uploads/as/coats/007ca61f4814aea4.JPG"
     n = 15
     if n > 20:
         bg = "/static/fr.jpg"
     else:
         bg = "/static/bk.jpg"
-    return render_template('home.html', bg=bg, weat=bkweather)
+    return render_template('home.html', bg=bg, weat=bkweather, j=cloth_path)
 
 #here is weather html
 @app.route("/weather")
@@ -130,6 +131,8 @@ def account():
 def wardrobe():
     id_value = request.form.get('datasource')
     two_dimensional_list = [['001','pants'],['002','coats']]
+    two_dimensional_list2 = [['001','shorts'],['002','trousers']]
+    two_dimensional_list3 = [['001','coats'],['002','jackets'],['003','rainwear']]
     def description_value(select):
         for data in two_dimensional_list:
             if data[0] == select:
@@ -141,7 +144,7 @@ def wardrobe():
             picture_file = upload(form.picture.data,ip)
         db.session.commit()
         return redirect(url_for('wardrobe'))
-    return render_template('wardrobe2.html', title='Wardrobe', form=form, two_dimensional_list=two_dimensional_list, weat=bkweather)
+    return render_template('wardrobe.html', title='Wardrobe', form=form, two_dimensional_list=two_dimensional_list, weat=bkweather)
   
 
 def upload(form_picture, path1):
@@ -159,3 +162,4 @@ def upload(form_picture, path1):
     i.save(picture_path)
 
     return picture_fn
+    

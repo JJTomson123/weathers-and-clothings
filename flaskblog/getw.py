@@ -5,9 +5,11 @@ from bs4 import BeautifulSoup
 import datetime
 import os
 import pyodbc
+
 import urllib.request
 import zipfile 
 import lxml
+
 def getw():
     # set dir 
     today = str(datetime.date.today())
@@ -86,4 +88,3 @@ def getw():
     save_name = "taiwan_cwb.csv"
     save_name = os.path.join(file_path,cwb_data,save_name)
     df.to_csv(save_name,index=False,encoding="utf_8_sig")
-
