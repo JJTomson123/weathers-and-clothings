@@ -2,6 +2,9 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
+from flaskblog import getw
+
+getw.getw()
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'ddff290515c29a5e706c9029f54a9c52'

@@ -10,15 +10,14 @@ from flaskblog.models import User, Post
 from flask_login import login_user, current_user, logout_user, login_required
 import csv
 
-
 with open('./flaskblog/cwb_weather_data/taiwan_cwb.csv', newline='',encoding='utf-8') as f:
     reader = csv.reader(f)
     data = list(reader)
 
 #wea = data[50][12]
-#wea = "晴"
+wea = "晴"
 #wea = "陰"
-wea = ""
+#wea = ""
 if wea == "晴":
     bkweather = "/static/movie/sunnyday.mp4"
 elif wea == "陰":
