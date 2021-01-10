@@ -31,19 +31,26 @@ else:
 @app.route("/home")
 def home():
     temp = (int(data[50][5]) + int(data[50][6]))//2
-    username = str(current_user.username)
-    path = "/static/uploads/" + username + "/pants/trousers"
-    bath = (os.path.dirname(__file__))
-    if temp > 20:
-        upp = os.path.join(os.path.dirname(__file__), path)
-        downp = bath + path
+    if current_user.username:
+        username = str(current_user.username)
+        path1 = "/static/uploads/" + username + "/褲/短褲"
+        path2 = "/static/uploads/" + username + "/上衣/大褸"
+        bath = (os.path.dirname(__file__))
+        upp = bath + path2
+        downp = bath + path1
+        if os.listdir(downp) and os.listdir(upp):
+            pdown = random.choice([x for x in os.listdir(downp)])
+            pup = random.choice([y for y in os.listdir(upp)])
+            up = path2 +"/" + pup
+            down = path1 + "/" + pdown   
+            
+        else:
+            up = "/static/uploads/white.jpg"
+            down = "/static/uploads/white.jpg"      
     else:
-        upp = "/static/uploads/" + username + "/pants/trousers"
-        downp = bath + path
-    pdown = random.choice([x for x in os.listdir(downp)])
-    down = path + "/" + pdown
-    print(down)
-    return render_template('home.html', weat=bkweather, down=down)
+        up = "/static/uploads/white.jpg"
+        down = "/static/uploads/white.jpg"
+    return render_template('home.html', weat=bkweather, down=down, up=up)
 
 #here is weather html
 @app.route("/")
@@ -61,7 +68,7 @@ def about():
 @app.route("/register", methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
-        return redirect(url_for('home'))
+        return redirect(url_for('weather'))
     form = RegistrationForm()
     if form.validate_on_submit():
         #here will create new user folder when register
@@ -86,7 +93,7 @@ def register():
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('home'))
+        return redirect(url_for('weather'))
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
@@ -102,7 +109,7 @@ def login():
 @app.route("/logout")
 def logout():
     logout_user()
-    return redirect(url_for('home'))
+    return redirect(url_for('weather'))
 
 
 def save_picture(form_picture):
@@ -181,34 +188,3 @@ def upload(form_picture, path1):
 
     return picture_fn
     
-@app.route('/album/', methods=['POST', 'GET'])
-def album():
-
-	colspan=int(int(session.get('width'))/150)
-	if colspan>7:
-		colspan=7
-	basepath = os.path.join(os.path.dirname(__file__), 'static','uploads')
-	dirs=os.listdir(os.path.join(basepath,session.get('username')))
-	dirs.insert(0,'ALL')
-	dirs.insert(0,'')
-
-	dict2={} #record all folder has what number name
-
-	for dir in dirs:
-		if dir == "ALL" or dir == '':
-			continue
-		dict2[dir]={'photo':[],'video':[]}
-		path=os.path.join(basepath,session.get('username'),dir,'photo')
-		for lists in os.listdir(path):
-			dict2[dir]['photo'].append(lists)
-		path=os.path.join(basepath,session.get('username'),dir,'video')
-		for lists in os.listdir(path):
-			dict2[dir]['video'].append(lists)
-	if request.method == 'POST':
-		if request.values['folder']!='0' and request.values['folder']!='1':
-			return render_template('album.html',dirs=dirs,colspan=colspan, \
-				filefolder=[dirs[int(request.values['folder'])]],files=dict2,username=session.get('username'))
-		elif request.values['folder'] =='1':
-			return render_template('album.html',dirs=dirs, colspan=colspan,\
-				filefolder=dirs[2:],files=dict2,username=session.get('username'))
-	return render_template('album.html',dirs=dirs, files=dict2, filefolder=dirs[2:],colspan=colspan,username=session.get('username'))
