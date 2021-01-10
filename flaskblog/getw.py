@@ -5,15 +5,16 @@ from bs4 import BeautifulSoup
 import datetime
 import os
 import pyodbc
+import urllib.request
+import zipfile 
+import lxml
 def getw():
     # set dir 
     today = str(datetime.date.today())
-    cwb_data = os.path.join('flaskblog','cwb_weather_data')
+    cwb_data = os.path.join(os.path.dirname(__file__),'cwb_weather_data')
     if not os.path.exists(cwb_data):
         os.mkdir(cwb_data)
     # connect api
-    import urllib.request
-    import zipfile 
     res ="http://opendata.cwb.gov.tw/opendataapi?dataid=F-D0047-093&authorizationkey=CWB-3FB0188A-5506-41BE-B42A-3785B42C3823"
     urllib.request.urlretrieve(res,"F-D0047-093.zip")
     f=zipfile.ZipFile('F-D0047-093.zip')
@@ -44,7 +45,6 @@ def getw():
                 district = location.find_all("locationName")[0].text
                 geocode = location.geocode.text
                 weather = location.find_all("weatherElement")
-                # time 
                 time = weather[1].find_all("dataTime")
                 for j in range(0,len(time)):
                     x = time[j].text.split("T")
@@ -86,3 +86,4 @@ def getw():
     save_name = "taiwan_cwb.csv"
     save_name = os.path.join(file_path,cwb_data,save_name)
     df.to_csv(save_name,index=False,encoding="utf_8_sig")
+
