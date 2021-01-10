@@ -46,8 +46,9 @@ def home():
 #here is weather html
 @app.route("/weather")
 def weather():
+
     return render_template('weather.html', title='Weather',data=data, weat=bkweather)
-    #return render_template('weather.html', title='Weather')
+
 
 @app.route("/about")
 def about():
@@ -63,13 +64,13 @@ def register():
         #here will create new user folder when register
         basepath = os.path.join(os.path.dirname(__file__), 'static','uploads')
         os.mkdir(os.path.join(basepath,request.values['username']))
-        os.mkdir(os.path.join(basepath,request.values['username'],'pants'))
-        os.mkdir(os.path.join(basepath,request.values['username'],'pants','trousers'))
-        os.mkdir(os.path.join(basepath,request.values['username'],'pants','shorts'))
-        os.mkdir(os.path.join(basepath,request.values['username'],'coats'))
-        os.mkdir(os.path.join(basepath,request.values['username'],'coats','coats'))
-        os.mkdir(os.path.join(basepath,request.values['username'],'coats','jackets'))
-        os.mkdir(os.path.join(basepath,request.values['username'],'coats','rainwear'))
+        os.mkdir(os.path.join(basepath,request.values['username'],'褲'))
+        os.mkdir(os.path.join(basepath,request.values['username'],'褲','短褲'))
+        os.mkdir(os.path.join(basepath,request.values['username'],'褲','長褲'))
+        os.mkdir(os.path.join(basepath,request.values['username'],'上衣'))
+        os.mkdir(os.path.join(basepath,request.values['username'],'上衣','大褸'))
+        os.mkdir(os.path.join(basepath,request.values['username'],'上衣','短袖'))
+        os.mkdir(os.path.join(basepath,request.values['username'],'上衣','雨衣'))
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
         user = User(username=form.username.data, email=form.email.data, password=hashed_password)
         db.session.add(user)
@@ -145,7 +146,7 @@ def account():
 @login_required
 def wardrobe():
     id_value = request.form.get('datasource')
-    two_dimensional_list = [['001','pants/shorts'],['002','pants/trousers'],['003','coats/coats'],['004','coats/jackets'],['005','coats/rainwear']]
+    two_dimensional_list = [['001','褲/短褲'],['002','褲/長褲'],['003','上衣/大褸'],['004','上衣/短袖'],['005','上衣/雨衣']]
 
     def description_value(select):
         for data in two_dimensional_list:
@@ -177,3 +178,34 @@ def upload(form_picture, path1):
 
     return picture_fn
     
+@app.route('/album/', methods=['POST', 'GET'])
+def album():
+
+	colspan=int(int(session.get('width'))/150)
+	if colspan>7:
+		colspan=7
+	basepath = os.path.join(os.path.dirname(__file__), 'static','uploads')
+	dirs=os.listdir(os.path.join(basepath,session.get('username')))
+	dirs.insert(0,'ALL')
+	dirs.insert(0,'')
+
+	dict2={} #record all folder has what number name
+
+	for dir in dirs:
+		if dir == "ALL" or dir == '':
+			continue
+		dict2[dir]={'photo':[],'video':[]}
+		path=os.path.join(basepath,session.get('username'),dir,'photo')
+		for lists in os.listdir(path):
+			dict2[dir]['photo'].append(lists)
+		path=os.path.join(basepath,session.get('username'),dir,'video')
+		for lists in os.listdir(path):
+			dict2[dir]['video'].append(lists)
+	if request.method == 'POST':
+		if request.values['folder']!='0' and request.values['folder']!='1':
+			return render_template('album.html',dirs=dirs,colspan=colspan, \
+				filefolder=[dirs[int(request.values['folder'])]],files=dict2,username=session.get('username'))
+		elif request.values['folder'] =='1':
+			return render_template('album.html',dirs=dirs, colspan=colspan,\
+				filefolder=dirs[2:],files=dict2,username=session.get('username'))
+	return render_template('album.html',dirs=dirs, files=dict2, filefolder=dirs[2:],colspan=colspan,username=session.get('username'))

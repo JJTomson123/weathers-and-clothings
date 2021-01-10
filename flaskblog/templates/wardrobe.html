@@ -28,4 +28,50 @@
             </div>
         </form>
     </div>
+    <!--
+    <div>
+        {% for folder in filefolder %}
+          <tr>
+            <th colspan="7" >{{folder}}</th>
+          </tr>
+          {% if files[folder]['photo'] != [] %}
+          <tr>
+            <th colspan="7" >photo</th>
+          </tr>
+          {% endif %}
+          {% for image in files[folder]['photo'] %}
+            {% if files[folder]['photo'].index(image) % colspan == 0 and files[folder]['photo'].index(image) != 0 %}
+              <tr>
+                <td>
+                  <img src="../static/uploads/{{username}}/{{folder}}/album/photo/{{image}}" width="150" height="150">    
+                </td>
+            {% else %}
+
+              <td>
+                  <img src="../static/uploads/{{username}}/{{folder}}/album/photo/{{image}}" width="150"height="150">   
+              </td>
+            {% endif %}
+          {% endfor %} 
+          {% if files[folder]['video'] != [] %}
+          <tr>
+            <th colspan="7" >video</th>
+          </tr>
+          {% endif %}
+
+          {% for vlog in files[folder]['video'] %}
+            {% if files[folder]['video'].index(vlog) % colspan == 0 and files[folder]['video'].index(vlog) != 0 %}
+              <tr>
+                <td>
+              <img src="../static/uploads/{{username}}/{{folder}}/album/video/{{vlog[:-4]}}.jpg" width="150" height="150">
+                </td>
+            {% else %}
+              <td>
+              <img src="../static/uploads/{{username}}/{{folder}}/album/video/{{vlog[:-4]}}.jpg" width="150" height="150">
+     
+              </td>
+            {% endif %}
+          {% endfor %} 
+        {% endfor %}
+    </div>
+    -->
 {% endblock content %}
