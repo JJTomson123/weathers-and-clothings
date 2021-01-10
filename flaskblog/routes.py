@@ -1,6 +1,7 @@
 import os
 import secrets
 import time
+import random
 from PIL import Image
 from flask import render_template, url_for, flash, redirect, request, session
 from flaskblog import app, db, bcrypt
@@ -13,25 +14,39 @@ import csv
 with open('./flaskblog/cwb_weather_data/taiwan_cwb.csv', newline='',encoding='utf-8') as f:
     reader = csv.reader(f)
     data = list(reader)
-bkweather = "/static/movie/cloudy.mp4"
+
+wea = data[50][12]
+if wea == "晴":
+    bkweather = "/static/movie/sunnyday.mp4"
+elif wea == "陰":
+    bkweather = "/static/movie/cloudy.mp4"
+elif "雨" in list(wea):
+    bkweather = "/static/movie/rainyday.mp4"
+else:
+    bkweather = "/static/movie/sunnycloudy.mp4"
+
 @app.route("/")
 @app.route("/home")
 def home():
-    cloth_path = "/static/uploads/as/coats/007ca61f4814aea4.JPG"
-    n = 15
-    if n > 20:
-        bg = "/static/fr.jpg"
+    temp = (int(data[50][5]) + int(data[50][6]))//2
+    username = str(current_user.username)
+    path = "/static/uploads/" + username + "/pants/trousers"
+    bath = (os.path.dirname(__file__))
+    if temp > 20:
+        upp = os.path.join(os.path.dirname(__file__), path)
+        downp = bath + path
     else:
-        bg = "/static/bk.jpg"
-    return render_template('home.html', bg=bg, weat=bkweather, clothes=cloth_path)
+        upp = "/static/uploads/" + username + "/pants/trousers"
+        downp = bath + path
+    pdown = random.choice([x for x in os.listdir(downp)])
+    down = path + "/" + pdown
+    print(down)
+    return render_template('home.html', weat=bkweather, down=down)
 
 #here is weather html
 @app.route("/weather")
 def weather():
-    with open('./flaskblog/cwb_weather_data/taiwan_cwb.csv', newline='',encoding='utf-8') as f:
-        reader = csv.reader(f)
-        data = list(reader)
-    return render_template('weather.html', title='Weather',**locals(), weat=bkweather)
+    return render_template('weather.html', title='Weather',data=data, weat=bkweather)
     #return render_template('weather.html', title='Weather')
 
 @app.route("/about")
