@@ -8,7 +8,7 @@ import pyodbc
 def getw():
     # set dir 
     today = str(datetime.date.today())
-    cwb_data = "flaskblog/cwb_weather_data"
+    cwb_data = os.path.join('flaskblog','cwb_weather_data')
     if not os.path.exists(cwb_data):
         os.mkdir(cwb_data)
     # connect api
@@ -84,6 +84,5 @@ def getw():
     df = pd.DataFrame(data,columns=["CITY","DISTRICT","GEOCODE","DAY","TIME","T","TD","RH","WD","WS","BF","AT","Wx","Wx_n","get_day"])
     file_path = os.getcwd()
     save_name = "taiwan_cwb.csv"
-    save_name = file_path +"/"+ cwb_data +"/"+ save_name
-
+    save_name = os.path.join(file_path,cwb_data,save_name)
     df.to_csv(save_name,index=False,encoding="utf_8_sig")
