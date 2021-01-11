@@ -10,7 +10,7 @@ from flaskblog.models import User, Post
 from flask_login import login_user, current_user, logout_user, login_required
 import csv
 
-with open('./flaskblog/cwb_weather_data/taiwan_cwb.csv', newline='',encoding='utf-8') as f:
+with open('./flaskblog/cwb_weather_data/taiwan_cwb_3_day.csv', newline='',encoding='utf-8') as f:
     reader = csv.reader(f)
     data = list(reader)
 
@@ -70,8 +70,12 @@ def home():
 @app.route("/")
 @app.route("/weather")
 def weather():
+    with open('./flaskblog/cwb_weather_data/taiwan_cwb_7_day.csv', newline='',encoding='utf-8') as f:
+        reader2 = csv.reader(f)
+        data2 = list(reader2)
 
-    return render_template('weather.html', title='Weather',data=data, weat=bkweather)
+
+    return render_template('weather.html', title='Weather',**locals())
 
 
 @app.route("/about")
