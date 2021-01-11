@@ -16,7 +16,7 @@ with open('./flaskblog/cwb_weather_data/taiwan_cwb.csv', newline='',encoding='ut
 
 wea = data[50][12]
 #wea = "晴"
-wea = "陰"
+#wea = "陰"
 #wea = ""
 #wea = "雨"
 if wea == "晴":
