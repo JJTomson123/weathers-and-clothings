@@ -56,6 +56,6 @@ class UpdateAccountForm(FlaskForm):
                 raise ValidationError('That email is taken. Please choose a different one.')
 
 class ImagesForm(FlaskForm):
-    picture = FileField('Upload Clothes', validators=[FileAllowed(['jpg', 'png'])])
+    picture = FileField('Upload Clothes', render_kw={'multiple': True}, validators=[FileAllowed(['jpeg','jfif','HEIC','jpg', 'png'])])
     submit = SubmitField('Upload')
 

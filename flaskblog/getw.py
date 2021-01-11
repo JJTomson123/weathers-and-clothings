@@ -89,4 +89,3 @@ def getw():
     save_name = os.path.join(file_path,cwb_data,save_name)
     df.to_csv(save_name,index=False,encoding="utf_8_sig")
 
-getw()
