@@ -31,22 +31,32 @@ else:
 @app.route("/home")
 def home():
     temp = (int(data[50][5]) + int(data[50][6]))//2
+    if bkweather == "/static/movie/rainyday.mp4":
+        ddress = "/褲/長褲"
+        udress = "/上衣/雨衣"
+    elif temp < 20:
+        ddress = "/褲/長褲"
+        udress = "/上衣/大褸"
+    else:
+        ddress = "/褲/短褲"
+        udress = "/上衣/短袖"  
     if current_user.username:
         username = str(current_user.username)
-        path1 = "/static/uploads/" + username + "/褲/短褲"
-        path2 = "/static/uploads/" + username + "/上衣/大褸"
+        path1 = "/static/uploads/" + username + ddress
+        path2 = "/static/uploads/" + username + udress
         bath = (os.path.dirname(__file__))
         upp = bath + path2
         downp = bath + path1
-        if os.listdir(downp) and os.listdir(upp):
+        if os.listdir(downp):
             pdown = random.choice([x for x in os.listdir(downp)])
-            pup = random.choice([y for y in os.listdir(upp)])
-            up = path2 +"/" + pup
-            down = path1 + "/" + pdown   
-            
+            down = path1 + "/" + pdown         
         else:
-            up = "/static/uploads/white.jpg"
-            down = "/static/uploads/white.jpg"      
+            down = "/static/uploads/white.jpg"
+        if os.listdir(upp):
+            pup = random.choice([y for y in os.listdir(upp)])
+            up = path2 +"/" + pup            
+        else:
+            up = "/static/uploads/white.jpg"       
     else:
         up = "/static/uploads/white.jpg"
         down = "/static/uploads/white.jpg"
