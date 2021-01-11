@@ -46,7 +46,7 @@ def home():
             
         else:
             up = "/static/uploads/white.jpg"
-            down = "/static/uploads/white.jpg"      
+            down = "/static/uploads/white.jpg"     
     else:
         up = "/static/uploads/white.jpg"
         down = "/static/uploads/white.jpg"
@@ -168,6 +168,7 @@ def wardrobe():
         if form.picture.data:
             picture_file = upload(form.picture.data,ip)
         db.session.commit()
+        flash('太好了，衣櫥有衣服了！','success')
         return redirect(url_for('wardrobe'))
     return render_template('wardrobe.html', title='Wardrobe', form=form, two_dimensional_list=two_dimensional_list, weat=bkweather)
   
