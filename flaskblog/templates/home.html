@@ -8,11 +8,67 @@
           word-wrap: break-word;
     
         }
+        #customers1 {
+            margin-top: 5rem;
+            margin-right: 50rem;
+            position: fixed;
+            font-family: Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 30%;
+        }
+        #customers {
+            margin-top: 2rem;
+            font-family: Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        #customers td, #customers th {
+          border: 1px solid #ddd;
+          padding: 8px;
+        }
+
+        #customers tr:nth-child(even){background-color: #f2f2f2;}
+        #customers tr:nth-child(odd){background-color: #f2f2f2;}
+
+        #customers tr:hover {background-color: #ddd;}
+
+        #customers th {
+          padding-top: 12px;
+          padding-bottom: 12px;
+          text-align: center;
+          background-color: #4CAF50;
+          color: white;
+        }
         
-        </style>
+    </style>
         
 </head>
-
+        <div id="customers1">
+        <h1><span style="color:white;">今天的天氣~~~</span></h1>
+        <table id="customers">
+            <tr>
+                <th>日期</th>
+                <td> {{data[50][3]}} </td>
+            </tr>
+            <tr>
+                <th>天氣</th>
+                <td> {{data[50][12]}} </td>
+            </tr>
+            <tr>
+                <th>最高溫度</th>
+                <td> {{data[50][5]}} </td>
+            </tr>
+            <tr>
+                <th>最低溫度</th>
+                <td> {{data[50][6]}} </td>
+            </tr>
+            <tr>
+                <th>濕度</th>
+                <td> {{data[50][7]}} %</td>
+            </tr>         
+            </table>
+        </div>
         <div id="sidebar1">
             <img src=/static/image/closet.png width="820" height="800">
         </div>
@@ -30,25 +86,28 @@
             <br>
             <br>
 
-            <p id="demo" class="test" style="color:#FFDCB9" ></p>
+            <p id="demo" class="test" style="color:#FFDCB9"></p>
 
         </div>
         <script>
 
+            var a = "{{ weat }}";
+
             function myFunction(a) {
               
             
-              if (a==1) {
-                return "下雨下個不停，心情有沒有也跟著受影響了呢？選衣最好選一些比較跣水乾爽的衣服，可以選尼龍質地的衣服，蕾絲和絲質的衣料也是好選擇！下雨天鞋子當然最好選拖鞋或涼鞋～一些比較厚底的涼鞋是最好的";
-              }
-              else if (a==2){
-                return "日曬很強的時候，搭配上帽子的穿搭也很不錯選衣最好選一些比較透氣且薄薄的衣服，材質透氣的效果好，因此能夠讓你度過清涼的一天";
+                if (a == "/static/movie/rainyday.mp4" ) {
+                    return "下雨下個不停，心情有沒有也跟著受影響了呢？選衣最好選一些比較跣水乾爽的衣服，可以選尼龍質地的衣服，蕾絲和絲質的衣料也是好選擇！下雨天鞋子當然最好選拖鞋或涼鞋～一些比較厚底的涼鞋是最好的";
+                }
+                else if (a == "/static/movie/sunnyday.mp4"){
+                    return "日曬很強的時候，搭配上帽子的穿搭也很不錯選衣最好選一些比較透氣且薄薄的衣服，材質透氣的效果好，因此能夠讓你度過清涼的一天";
+                }
+                else{
+                    return "陰天的時候，從家裡出門的時候明明還很熱，結果天氣一下又轉涼了適合多穿（帶）一件薄外套如果選擇薄一點材質當披肩造型，就算放入包包裡時也不會太重。不用擔心留太多汗和被雨水弄濕衣服，因此可以選擇更多不同材質的衣服進行搭配";
+                }
             }
-              else{
-                return "陰天的時候，從家裡出門的時候明明還很熱，結果天氣一下又轉涼了適合多穿（帶）一件薄外套如果選擇薄一點材質當披肩造型，就算放入包包裡時也不會太重。不用擔心留太多汗和被雨水弄濕衣服，因此可以選擇更多不同材質的衣服進行搭配";
-                }}
-              
-            document.getElementById("demo").innerHTML = myFunction(2);
+
+            document.getElementById("demo").innerHTML = myFunction(a);
             
-            </script>
+        </script>
 {% endblock content %}

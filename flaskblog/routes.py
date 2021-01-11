@@ -14,11 +14,11 @@ with open('./flaskblog/cwb_weather_data/taiwan_cwb.csv', newline='',encoding='ut
     reader = csv.reader(f)
     data = list(reader)
 
-#wea = data[50][12]
+wea = data[50][12]
 #wea = "晴"
 #wea = "陰"
 #wea = ""
-wea = "雨"
+#wea = "雨"
 if wea == "晴":
     bkweather = "/static/movie/sunnyday.mp4"
 elif wea == "陰":
@@ -60,7 +60,7 @@ def home():
     else:
         up = "/static/uploads/white.jpg"
         down = "/static/uploads/white.jpg"
-    return render_template('home.html', weat=bkweather, down=down, up=up)
+    return render_template('home.html', weat=bkweather, down=down, up=up, data=data)
 
 #here is weather html
 @app.route("/")
