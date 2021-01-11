@@ -17,8 +17,8 @@ def get7():
     if not os.path.exists(cwb_data):
         os.mkdir(cwb_data)
     # connect api
-    res ="http://opendata.cwb.gov.tw/opendataapi?dataid=F-D0047-093&authorizationkey=CWB-3FB0188A-5506-41BE-B42A-3785B42C3823"
-    urllib.request.urlretrieve(res,"F-D0047-093.zip")
+    #res ="http://opendata.cwb.gov.tw/opendataapi?dataid=F-D0047-093&authorizationkey=CWB-3FB0188A-5506-41BE-B42A-3785B42C3823"
+    #urllib.request.urlretrieve(res,"F-D0047-093.zip")
     f=zipfile.ZipFile('F-D0047-093.zip')
     file = ['63_Week24_CH.xml']
     CITY = []
