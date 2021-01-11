@@ -16,17 +16,21 @@ with open('./flaskblog/cwb_weather_data/taiwan_cwb.csv', newline='',encoding='ut
 
 wea = data[50][12]
 #wea = "晴"
-#wea = "陰"
+wea = "陰"
 #wea = ""
 #wea = "雨"
 if wea == "晴":
     bkweather = "/static/movie/sunnyday.mp4"
+    img = "/static/image/天氣/sunny.png"
 elif wea == "陰":
     bkweather = "/static/movie/cloudy.mp4"
+    img = "/static/image/天氣/cloudy.png"
 elif "雨" in list(wea):
     bkweather = "/static/movie/rainyday.mp4"
+    img = "/static/image/天氣/rainy.png"
 else:
     bkweather = "/static/movie/sunnycloudy.mp4"
+    img = "/static/image/天氣/cloudplussun.png"
 
 @app.route("/home")
 def home():
@@ -60,7 +64,7 @@ def home():
     else:
         up = "/static/uploads/white.jpg"
         down = "/static/uploads/white.jpg"
-    return render_template('home.html', weat=bkweather, down=down, up=up, data=data)
+    return render_template('home.html', weat=bkweather, down=down, up=up, data=data, img=img)
 
 #here is weather html
 @app.route("/")

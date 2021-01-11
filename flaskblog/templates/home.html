@@ -9,12 +9,34 @@
     
         }
         #customers1 {
+    
+            background: #34b8ed; /* Old browsers */
+            background: -moz-linear-gradient(-45deg,  #34b8ed 0%, #9ef785 100%);    
+            background: -webkit-linear-gradient(-45deg,  #34b8ed 0%,#9ef785 100%);
+            background: linear-gradient(135deg,  #34b8ed 0%,#9ef785 100%); 
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#34b8ed', endColorstr='#9ef785',GradientType=1 ); 
+            border-radius:10px;
             margin-top: 5rem;
             margin-right: 50rem;
+            width: 300;
+            height: 400;
             position: fixed;
             font-family: Arial, Helvetica, sans-serif;
             border-collapse: collapse;
             width: 30%;
+        }
+        #fontoday{
+            margin-top: 1rem;
+            margin-left: 1rem;
+            height: 25rem
+        }
+        #fontodayweather{
+            margin-top: 1rem;
+            margin-left: 1rem;
+        }
+        #weimage{
+            margin-top: -15rem;
+            margin-left: 15rem;
         }
         #customers {
             margin-top: 2rem;
@@ -45,29 +67,19 @@
         
 </head>
         <div id="customers1">
-        <h1><span style="color:white;">今天的天氣~~~</span></h1>
-        <table id="customers">
-            <tr>
-                <th>日期</th>
-                <td> {{data[50][3]}} </td>
-            </tr>
-            <tr>
-                <th>天氣</th>
-                <td> {{data[50][12]}} </td>
-            </tr>
-            <tr>
-                <th>最高溫度</th>
-                <td> {{data[50][5]}} </td>
-            </tr>
-            <tr>
-                <th>最低溫度</th>
-                <td> {{data[50][6]}} </td>
-            </tr>
-            <tr>
-                <th>濕度</th>
-                <td> {{data[50][7]}} %</td>
-            </tr>         
-            </table>
+            <div id="fontoday">
+                <h1><span style="color:white; font-family: cursive;">{{data[50][3]}}</span></h1>
+                <div id="fontodayweather">
+                    <h2><span style="color:white; font-family: cursive;">天氣:{{data[50][12]}}</span></h2>
+                    <h2><span style="color:white; font-family: cursive;">最高溫度:{{data[50][5]}}°C</span></h2>
+                    <h2><span style="color:white; font-family: cursive;">最低溫度:{{data[50][6]}}°C</span></h2>
+                    <h2><span style="color:white; font-family: cursive;">濕度:{{data[50][7]}}%</span></h2>
+                </div>
+            </div>
+            <div id="weimage">
+                <img src={{img}} width="150" height="150">
+            </div>
+            
         </div>
         <div id="sidebar1">
             <img src=/static/image/closet.png width="820" height="800">
