@@ -173,7 +173,11 @@ def account():
 @login_required
 def wardrobe():
     id_value = request.form.get('datasource')
-    two_dimensional_list = [['001','褲/短褲'],['002','褲/長褲'],['003','上衣/大衣'],['004','上衣/短袖'],['005','上衣/雨衣']]
+    two_dimensional_list = [['001','褲/短褲'],
+                            ['002','褲/長褲'],
+                            ['003','上衣/大衣'],
+                            ['004','上衣/短袖'],
+                            ['005','上衣/雨衣']]
 
     def description_value(select):
         for data in two_dimensional_list:
@@ -187,7 +191,8 @@ def wardrobe():
         db.session.commit()
         flash('太好了，衣櫥有衣服了！','success')
         return redirect(url_for('wardrobe'))
-    return render_template('wardrobe.html', title='Wardrobe', form=form, two_dimensional_list=two_dimensional_list, weat=bkweather)
+    return render_template('wardrobe.html', title='Wardrobe', form=form, 
+                                            two_dimensional_list=two_dimensional_list, weat=bkweather)
   
 
 def upload(form_picture, path1):
