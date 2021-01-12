@@ -1,11 +1,50 @@
 {% extends "layout.html" %}
 {% block content %}
 <head>
+  <script>function firefoxFix() {
+  
+    if ( /firefox/.test( window.navigator.userAgent.toLowerCase() ) ) {
+        
+        var tds = document.getElementsByTagName( 'td' );
+        
+        for( var index = 0; index < tds.length; index++ ) {
+            tds[index].innerHTML = '<div class="ff-fix">' + tds[index].innerHTML + '</div>';                     
+        };
+        
+        var style = '<style>'
+            + 'td { padding: 0 !important; }' 
+            + 'td:hover::before, td:hover::after { background-color: transparent !important; }'
+            + '</style>';
+        document.head.insertAdjacentHTML( 'beforeEnd', style );
+        
+    };
+    
+};
+
+firefoxFix();</script>
   <style>
+  #customers td, th, .ff-fix {
+    cursor: pointer;
+    padding: 10px;
+    position: relative;
+}
+#customers td:hover::after,
+.ff-fix:hover::after { 
+    background-color: #D0D0D0;
+    content: '\00a0';  
+    height: 10000px;    
+    left: 0;
+    position: absolute;  
+    top: -5000px;
+    width: 100%;
+    z-index: -1;        
+}
+
 #customers {
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
   width: 100%;
+  overflow: hidden;
 }
 
 #customers td, #customers th {
@@ -16,10 +55,7 @@
 }
 
 
-#customers tr:nth-child(even){background-color: #f2f2f2;}
-#customers tr:nth-child(odd){background-color: #f2f2f2;}
 
-#customers tr:hover td {background-color: #ddd;}
 
 
 #customers th {
@@ -103,6 +139,9 @@
           </tr>  
             </table>
 </body>
+  
+
+{% endblock content %}
   
 
 {% endblock content %}
