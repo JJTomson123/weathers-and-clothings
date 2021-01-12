@@ -4,7 +4,7 @@ import numpy as np
 from bs4 import BeautifulSoup
 import datetime
 import os
-import pyodbc
+
 
 import urllib.request
 import zipfile 
