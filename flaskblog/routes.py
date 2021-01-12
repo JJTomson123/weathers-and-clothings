@@ -40,7 +40,7 @@ def home():
         udress = "/上衣/雨衣"
     elif temp < 20:
         ddress = "/褲/長褲"
-        udress = "/上衣/大褸"
+        udress = "/上衣/大衣"
     else:
         ddress = "/褲/短褲"
         udress = "/上衣/短袖"  
@@ -95,7 +95,7 @@ def register():
         os.mkdir(os.path.join(basepath,request.values['username'],'褲','短褲'))
         os.mkdir(os.path.join(basepath,request.values['username'],'褲','長褲'))
         os.mkdir(os.path.join(basepath,request.values['username'],'上衣'))
-        os.mkdir(os.path.join(basepath,request.values['username'],'上衣','大褸'))
+        os.mkdir(os.path.join(basepath,request.values['username'],'上衣','大衣'))
         os.mkdir(os.path.join(basepath,request.values['username'],'上衣','短袖'))
         os.mkdir(os.path.join(basepath,request.values['username'],'上衣','雨衣'))
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
@@ -173,7 +173,7 @@ def account():
 @login_required
 def wardrobe():
     id_value = request.form.get('datasource')
-    two_dimensional_list = [['001','褲/短褲'],['002','褲/長褲'],['003','上衣/大褸'],['004','上衣/短袖'],['005','上衣/雨衣']]
+    two_dimensional_list = [['001','褲/短褲'],['002','褲/長褲'],['003','上衣/大衣'],['004','上衣/短袖'],['005','上衣/雨衣']]
 
     def description_value(select):
         for data in two_dimensional_list:
