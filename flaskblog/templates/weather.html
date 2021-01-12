@@ -9,14 +9,18 @@
 }
 
 #customers td, #customers th {
+  cursor: pointer;
   border: 1px solid #ddd;
   padding: 8px;
+
 }
+
 
 #customers tr:nth-child(even){background-color: #f2f2f2;}
 #customers tr:nth-child(odd){background-color: #f2f2f2;}
 
-#customers tr:hover {background-color: #ddd;}
+#customers tr:hover td {background-color: #ddd;}
+
 
 #customers th {
   padding-top: 12px;
@@ -32,11 +36,11 @@
 </head>
 <body style="color:black;">
    
-       <h1><span style="color:white;">天氣預報</span></h1>
+       <h1><span style="color:black;">天氣預報</span></h1>
     
         
-        <p><span style="color:white;">接下來天氣的預測~~~</span></p>
-            <table id="customers">
+        <p><span style="color:black;">接下來天氣的預測~~~</span></p>
+        <table id="customers">
           <tr>
             <th>日期</th>
             <td> {{data2[1][1]}} </td>
@@ -98,6 +102,7 @@
             <td> {{data2[7][7]}} </td>
           </tr>  
             </table>
-</body>    
+</body>
+  
 
 {% endblock content %}
