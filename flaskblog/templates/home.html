@@ -2,8 +2,8 @@
 {% block content %}
 <head>
     <style> 
-        p.test {
-          width: 19em; 
+        h2.test {
+          width: 9em; 
           
           word-wrap: break-word;
     
@@ -98,7 +98,7 @@
             <br>
             <br>
 
-            <p id="demo" class="test" style="color:#FFDCB9"></p>
+            <h2 id="demo" class="test" style="color:#FFDCB9"></h2>
 
         </div>
         <script>
@@ -109,13 +109,48 @@
               
             
                 if (a == "/static/movie/rainyday.mp4" ) {
-                    return "下雨下個不停，心情有沒有也跟著受影響了呢？選衣最好選一些比較跣水乾爽的衣服，可以選尼龍質地的衣服，蕾絲和絲質的衣料也是好選擇！下雨天鞋子當然最好選拖鞋或涼鞋～一些比較厚底的涼鞋是最好的";
+                    var jsonContent = {
+                        "featured": ["下雨下個不停，心情有沒有也跟著受影響了呢？",
+                                     "今天會下雨，小心雨傘被幹走！",
+                                     "下雨了，你是不是要買雨傘hahaha~~~"
+                                    ]
+                    }
+
+                    var random = jsonContent.featured[Math.floor(Math.random() * jsonContent.featured.length)];
+                    return random
                 }
                 else if (a == "/static/movie/sunnyday.mp4"){
-                    return "日曬很強的時候，搭配上帽子的穿搭也很不錯選衣最好選一些比較透氣且薄薄的衣服，材質透氣的效果好，因此能夠讓你度過清涼的一天";
+                    var jsonContent = {
+                        "featured": ["日曬很強的時候，搭配上帽子的穿搭也很不錯。",
+                                     "天氣好就早睡早起，難道你的良心不會痛喔~",
+                                     "今天的天氣易燃易爆炸！炸！炸！炸！"
+                                    ]
+                    }
+
+                    var random = jsonContent.featured[Math.floor(Math.random() * jsonContent.featured.length)];
+                    return random
+                }
+                else if (a == "/static/movie/sunnycloudy.mp4"){
+                    var jsonContent = {
+                        "featured": ["小哥哥還是小姐姐，請問這四個字怎麼念？晴天有雲。",
+                                     "今天天氣很好，祝你有個美好的一天。",
+                                     "！！請認真看完！！\n\n我的組員浪費很多時間寫這個小語。"
+                                    ]
+                    }
+
+                    var random = jsonContent.featured[Math.floor(Math.random() * jsonContent.featured.length)];
+                    return random
                 }
                 else{
-                    return "陰天的時候，從家裡出門的時候明明還很熱，結果天氣一下又轉涼了適合多穿（帶）一件薄外套如果選擇薄一點材質當披肩造型，就算放入包包裡時也不會太重。不用擔心留太多汗和被雨水弄濕衣服，因此可以選擇更多不同材質的衣服進行搭配";
+                    var jsonContent = {
+                        "featured": ["天冷的時候，最適合帶着棉被上課(:誤",
+                                     "今天是陰天，我不想努力了！",
+                                     "好吧！我真的想不到了，今天就是陰天。"
+                                    ]
+                    }
+
+                    var random = jsonContent.featured[Math.floor(Math.random() * jsonContent.featured.length)];
+                    return random
                 }
             }
 
