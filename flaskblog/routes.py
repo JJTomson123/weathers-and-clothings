@@ -75,7 +75,7 @@ def weather():
         data2 = list(reader2)
 
 
-    return render_template('weather.html', title='Weather',**locals())
+    return render_template('weather.html', title='Weather',**locals(),weat=bkweather)
 
 
 @app.route("/about")
