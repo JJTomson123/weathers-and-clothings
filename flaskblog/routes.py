@@ -74,7 +74,6 @@ def weather():
         reader2 = csv.reader(f)
         data2 = list(reader2)
 
-
     return render_template('weather.html', title='Weather',**locals(), weat=bkweather)
 
 
