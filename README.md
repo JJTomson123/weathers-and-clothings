@@ -1,5 +1,5 @@
-# flask-template
-這是一個類似部落格的網頁
+這是一個天氣預報x衣服配搭的網頁
+執行檔:run.py
 alabaster==0.7.12
 anyjson==0.3.3
 apispec==1.3.3
