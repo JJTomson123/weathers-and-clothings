@@ -1,5 +1,9 @@
 這是一個天氣預報x衣服搭配的網頁
 執行檔:run.py
+
+Github Repo:https://github.com/JJTomson123/weathers-and-clothings.git
+
+
 alabaster==0.7.12
 anyjson==0.3.3
 apispec==1.3.3
