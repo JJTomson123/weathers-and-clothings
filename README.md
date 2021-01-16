@@ -5,7 +5,7 @@ Github Repo:https://github.com/JJTomson123/weathers-and-clothings.git
 
 以下是這個程式所需的環境
 
-![image](https://github.com/JJTomson123/weathers-and-clothings/profile.png)
+![image](https://github.com/JJTomson123/weathers-and-clothings/blob/main/profile.png)
 
 
 alabaster==0.7.12
