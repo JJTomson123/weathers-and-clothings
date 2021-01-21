@@ -1,11 +1,14 @@
-這是一個天氣預報x衣服搭配的網頁
-執行檔:run.py
+1.這是一個天氣預報x衣服搭配的網頁
 
-Github Repo:https://github.com/JJTomson123/weathers-and-clothings.git
+2.執行檔:run.py 
+
+3.網頁運作模式可參考PPT尾頁的架構圖
+
+4.Github Repo:https://github.com/JJTomson123/weathers-and-clothings.git
 
 ![image](https://github.com/JJTomson123/weathers-and-clothings/blob/main/profile.png)
 
-以下是這個程式所需的環境
+5.以下是這個程式所需的環境
 
 alabaster==0.7.12
 anyjson==0.3.3
