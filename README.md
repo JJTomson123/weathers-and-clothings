@@ -8,7 +8,8 @@
 
 ![image](https://github.com/JJTomson123/weathers-and-clothings/blob/main/profile.png)
 
-5.以下是這個程式所需的packages
+5.以下是這個程式所需的packages:
+
 astroid @ file:///C:/ci/astroid_1592495992870/work
 bcrypt==3.1.7
 beautifulsoup4 @ file:///tmp/build/80754af9/beautifulsoup4_1601924105527/work
