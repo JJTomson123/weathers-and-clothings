@@ -6,9 +6,11 @@
 
 4.Github Repo:https://github.com/JJTomson123/weathers-and-clothings.git
 
+5.這是我們網站的主版面:(profile.png)
+
 ![image](https://github.com/JJTomson123/weathers-and-clothings/blob/main/profile.png)
 
-5.以下是這個程式所需的packages:(在final.txt)
+6.以下是這個程式所需的packages:(final.txt)
 
 astroid @ file:///C:/ci/astroid_1592495992870/work
 bcrypt==3.1.7
