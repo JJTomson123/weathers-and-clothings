@@ -8,7 +8,57 @@
 
 ![image](https://github.com/JJTomson123/weathers-and-clothings/blob/main/profile.png)
 
-5.以下是這個程式所需的環境
+5.以下是這個程式所需的packages
+astroid @ file:///C:/ci/astroid_1592495992870/work
+bcrypt==3.1.7
+beautifulsoup4 @ file:///tmp/build/80754af9/beautifulsoup4_1601924105527/work
+certifi==2020.12.5
+cffi==1.14.0
+click==7.1.2
+colorama==0.4.3
+dnspython==1.16.0
+ecdsa==0.13
+email-validator @ file:///home/conda/feedstock_root/build_artifacts/email_validator_1589962946737/work
+Flask==1.1.2
+Flask-Bcrypt @ file:///tmp/build/80754af9/flask-bcrypt_1592513356562/work
+Flask-Login==0.5.0
+Flask-SQLAlchemy==2.4.1
+Flask-WTF==0.14.3
+idna @ file:///home/conda/feedstock_root/build_artifacts/idna_1593328102638/work
+isort==4.3.21
+itsdangerous==1.1.0
+Jinja2==2.11.2
+lazy-object-proxy==1.4.3
+lxml @ file:///C:/ci/lxml_1606516905842/work
+MarkupSafe==1.1.1
+mccabe==0.6.1
+mkl-fft==1.2.0
+mkl-random==1.1.1
+mkl-service==2.3.0
+numpy @ file:///C:/ci/numpy_and_numpy_base_1603480701039/work
+olefile==0.46
+pandas @ file:///C:/ci/pandas_1608056614942/work
+Pillow==7.1.2
+pycparser==2.20
+pycryptodome==3.9.7
+pylint @ file:///C:/ci/pylint_1592499115540/work
+pyodbc===4.0.0-unsupported
+python-dateutil==2.8.1
+pytz @ file:///tmp/build/80754af9/pytz_1608922264688/work
+six==1.15.0
+soupsieve @ file:///tmp/build/80754af9/soupsieve_1607965878077/work
+SQLAlchemy @ file:///C:/ci/sqlalchemy_1593446399229/work
+toml @ file:///tmp/build/80754af9/toml_1592853716807/work
+typed-ast==1.4.1
+Werkzeug==1.0.1
+wincertstore==0.2
+wrapt==1.11.2
+WTForms==2.3.1
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------
+
+
 
 alabaster==0.7.12
 anyjson==0.3.3
